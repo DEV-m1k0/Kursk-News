@@ -1,0 +1,40 @@
+#block1 {
+    position: relative;
+    min-height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный цвет для затемнения */
+}
+
+#block1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: fadeInOut 50s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0% {
+        background-image: url("http://127.0.0.1:8000/static/assets/images/img1.jpg");
+        transform: scale(1.1);
+    }
+    33.33% {
+        transform: scale(1.2);
+        background-image: url("http://127.0.0.1:8000/static/assets/images/img2.jpg");
+    }
+    66.66% {
+        transform: scale(1.5);
+        background-image: url("http://127.0.0.1:8000/static/assets/images/img3.jpg");
+    }
+    100% {
+        transform: scale(1.1);
+        background-image: url("http://127.0.0.1:8000/static/assets/images/img1.jpg");
+    }
+}

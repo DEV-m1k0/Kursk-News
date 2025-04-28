@@ -1,0 +1,114 @@
+header #icon {
+    max-width: 16px;
+    max-height: 16px;
+}
+
+header i {
+    font-size: 16px;
+    cursor: pointer;
+    color: #f40000;
+    transition: all 0.25s;
+}
+
+header i:hover {
+    color: white;
+}
+
+header #header {
+    position: relative;
+    overflow: hidden;
+}
+header #header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff53;
+    backdrop-filter: blur(5px);
+    height: 100%;
+    z-index: -1;
+}
+
+
+header #header #header-nav-link {
+    color: white;
+    font-size: 18px;
+    transition: all .2s;
+}
+header #header a:hover {
+    color: #f40000;
+    transform: translateY(-2px);
+}
+header #header #header-nav-li .active {
+    color: #f40000;
+    font-weight: bold;
+}
+header #header .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(254, 0, 0, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+
+header #header .offcanvas {
+    background-color: white;
+}
+
+/* ----------------------------- Анимация для li ---------------------------- */
+header #header .offcanvas .offcanvas-body li {
+    transition: all .2s;
+}
+header #header .offcanvas .offcanvas-body li:hover {
+    transform: translateX(10px);
+}
+/* ---------------------------- /Анимация для li ---------------------------- */
+
+header #header .offcanvas .offcanvas-body a {
+    position: relative; /* Позволит разместить ::after правильно */
+    color: black;
+    font-size: 22px;
+    transition: all .2s;
+    text-decoration: none;
+}
+header #header .offcanvas .offcanvas-body a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 100%; /* Изначально скрываем линию */
+    height: 2px; /* Толщина линии */
+    background: linear-gradient(to right, transparent, currentColor); /* Градиент слева-прозрачный вправо-закрашивается */
+    transition: right 0.3s cubic-bezier(.3,.7,.4,1); /* Анимация постепенного расширения */
+}
+header #header .offcanvas .offcanvas-body a:hover::after {
+    right: 0; /* Линия раскрывается на всю ширину */
+}
+
+header #header .offcanvas .offcanvas-body ul {
+    list-style-type: none; /* Убираем стандартные маркеры */
+    padding-left: 0;       /* Удаляем отступ слева */
+}
+
+
+/* -------------------------- offcanvas link icons -------------------------- */
+header #header .offcanvas .offcanvas-body #home::before {
+    content: "\f015";      /* Код иконки чекбокса из Font Awesome */
+    font-family: 'FontAwesome'; /* Используем шрифт Font Awesome */
+    display: inline-block;
+    margin-right: 10px;     /* Отступ справа */
+    color: black;           /* Цвет иконки */
+}
+header #header .offcanvas .offcanvas-body #news::before {
+    content: "\f1ea";      /* Код иконки чекбокса из Font Awesome */
+    font-family: 'FontAwesome'; /* Используем шрифт Font Awesome */
+    display: inline-block;
+    margin-right: 10px;     /* Отступ справа */
+    color: black;           /* Цвет иконки */
+}
+header #header .offcanvas .offcanvas-body #contacts::before {
+    content: "\f095";      /* Код иконки чекбокса из Font Awesome */
+    font-family: 'FontAwesome'; /* Используем шрифт Font Awesome */
+    display: inline-block;
+    margin-right: 10px;     /* Отступ справа */
+    color: black;           /* Цвет иконки */
+}
+/* -------------------------- /offcanvas link icons ------------------------- */
