@@ -1,0 +1,73 @@
+{% load static %}
+
+{% block header %}
+
+<header>
+    <!-- Header Start -->
+   <div class="header-area">
+        <div class="main-header ">
+            <div class="header-top black-bg d-none d-md-block">
+               <div class="container">
+                   <div class="col-xl-12">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="header-info-left text-white">
+                                <small class="">Телефон редакции: 8-920-717-88-13</small>
+                            </div>
+                            <div class="header-info-right">
+                                <ul class="header-social">    
+                                    <li><a href="https://vk.com/kurskcityru" target="_blank"><i class="fab fa-vk"></i></a></li>
+                                    <li><a href="https://t.me/kurskcityru" target="_blank"><i class="fab fa-telegram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                   </div>
+               </div>
+            </div>
+           <div class="header-bottom header-sticky">
+                <div class="container">
+                    <div class="row mt-3 align-items-center">
+
+
+                        <!-- ------------------------------- Логотип ------------------------------- -->
+                        <div class="col">
+                                    <div class="logo">
+                                <a href="{% url 'index' %}"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <!-- ------------------------------ /Логотип ------------------------------- -->
+
+                        <!-- ------------------------------ Навигация ------------------------------ -->
+                        <div class="col p-0 header-flex">
+                            <div class="main-menu d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation" class="d-flex justify-content-end">    
+                                        <li><a href="{% url 'index' %}">Главная</a></li>
+                                        <li><a href="categori.html">Новости</a></li>
+                                        <li><a href="{% url 'login' %}">Войти</a></li>
+                                        <!-- -------------------------------- Поиск -------------------------------- -->
+                                        <li class="align-content-center">
+                                            <div class="d-none d-md-block">
+                                                <input type="search" class="form-control w-100" placeholder="Поиск новостей">
+                                            </div>
+                                        </li>
+                                        <!-- ------------------------------- /Поиск -------------------------------- -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>         
+                        <!-- ----------------------------- /Навигация ------------------------------ -->
+                        
+
+                        <!-- Mobile Menu -->
+                        <div class="col-12 mb-3">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+   </div>
+    <!-- Header End -->
+</header>
+
+{% endblock %}
