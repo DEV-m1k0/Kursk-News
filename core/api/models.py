@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Модель Пользователей
 class CustomUser(AbstractUser):
+    """
+    Модель Пользователей
+    """
     ROLES = (
         ('user', 'Пользователь'),
-        ('reporter', 'Репотртёр'),
+        ('copywriter', 'Копирайтер'),
         ('admin', 'Администратор'),
         ('redactor', 'Редактор'),
     )
@@ -15,16 +17,22 @@ class CustomUser(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-# Модель Новостей
 class Post(models.Model):
     """
-    
+    Модель Новостей
     """
     NEWS_STATUS = (
         ('under_consideration', 'На рассмотрении'),
         ('approver', 'Утверждена'),
         ('rejected', 'Отклонена')
     )
+    NEWS_TYPE = (
+        ('sport', 'Спорт'),
+        ('politics', 'Политика'),
+    )
+    type = models.CharField(max_length=40, choices=NEWS_TYPE, verbose_name='Тип новости')
+    image = models.ImageField(verbose_name='Каптинка новости', upload_to='news_images')
+    video = models.TextField(verbose_name='Видеоплеер', blank=True, null=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     content = models.TextField(verbose_name='Содержимое новости')
@@ -38,8 +46,10 @@ class Post(models.Model):
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
 
-# Модель Комментариев
 class Comment(models.Model):
+    """
+    Модель Комментариев
+    """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Новость')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Пользователь')
     text = models.TextField(verbose_name='Содержимое комментария')
@@ -52,8 +62,10 @@ class Comment(models.Model):
         verbose_name = 'Комментрий'
         verbose_name_plural = 'Комментарии'
     
-# Модель Лайков
 class Like(models.Model):
+    """
+    Модель Лайков
+    """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes', verbose_name='Новость')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Пользователь')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')

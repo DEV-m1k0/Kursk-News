@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'api'
 ]
 
-STATICFILES_DIRS = [BASE_DIR / 'static']
+
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'uploads'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -110,7 +114,7 @@ AUTH_USER_MODEL = 'api.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
