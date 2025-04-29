@@ -68,7 +68,7 @@ class Like(models.Model):
     """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes', verbose_name='Новость')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Пользователь')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания', db_index=True)
 
     def __str__(self):
         return f'Лайк {self.user} для {self.post}'
@@ -77,3 +77,17 @@ class Like(models.Model):
         unique_together = ('post', 'user')  # Один лайк от пользователя на пост
         verbose_name = 'Лайк'
         verbose_name_plural = 'Лайки'
+
+class AdBanner(models.Model):
+    """
+    Модель Лайков
+    """
+    title = models.CharField(max_length=200, verbose_name='Название рекламы')
+    image = models.ImageField(verbose_name='Каптинка новости', upload_to='ad_banner')
+
+    def __str__(self):
+        return f'Реклама {self.title}'
+    
+    class Meta:
+        verbose_name = 'Реклама'
+        verbose_name_plural = 'Реклама'
