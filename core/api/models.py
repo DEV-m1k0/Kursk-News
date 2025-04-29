@@ -17,6 +17,9 @@ class CustomUser(AbstractUser):
 
 # Модель Новостей
 class Post(models.Model):
+    """
+    
+    """
     NEWS_STATUS = (
         ('under_consideration', 'На рассмотрении'),
         ('approver', 'Утверждена'),
