@@ -15,6 +15,7 @@
 
     
     <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/ticker-style.css' %}">
@@ -99,7 +100,7 @@
                     <!-- Riht content -->
                     {%  if last_five_posts_filtered_by_likes %}
                         <div class="d-none d-lg-block col-lg-4">
-                            <div class="overflow-scroll h-100">
+                            <div class="h-100">
                                 {% for popular_post in last_five_posts_filtered_by_likes %}
 
                                     <div class="trand-right-single d-flex row">
@@ -124,41 +125,20 @@
     </div>
     <!-- Trending Area End -->
 
-    <div class="container">
-        <div class="ad p-5 rounded w-100 bg-secondary">
-            {% for q in qwe %}
-                {{q.image}}
-                <img style="min-width: 100px; min-height: 100px;" class="d-block" src="{{q.image}}" alt="">
-            {% endfor %}
-        </div>
-    </div>
 
-
-
-    <div class="weekly-news-area pt-50">
-        <div class="container">
-           <div class="weekly-wrapper">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="weekly-news-active dot-style d-flex dot-style">
-                            <div class="weekly-single {% if forloop.first %} active {% endif %}">
-                                {% for ad in adbanners %}
-                                    {{ad.image.url}}
-                                    <div class="weekly-img">
-                                        <img src="{{ad.image}}" alt="">
-                                    </div>
-                                    <div class="weekly-caption">
-                                        <span class="color1">Strike</span>
-                                        <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                    </div>
-                                {% endfor %}
-                            </div> 
-                        </div>
+    <!-- ------------------------------- Реклама ------------------------------- -->
+     <div class="container my-5">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for banner in banners %}
+                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                        <img src="{{banner.image}}" style="max-height: 300px;" class="d-block w-100" alt="...">
                     </div>
-                </div>
-           </div>
-        </div>
-    </div>           
+                {% endfor %}
+            </div>
+          </div>
+     </div>
+    <!-- ------------------------------ /Реклама ------------------------------- -->
 
 
     <!--   Weekly-News start -->
@@ -176,42 +156,17 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="weekly-news-active dot-style d-flex dot-style">
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="assets/img/news/weeklyNews2.jpg" alt="">
+                            {% for post in posts_filtered_by_likes %}
+                                <div class="weekly-single {% if forloop.first %} active {% endif %}">
+                                    <div class="weekly-img">
+                                        <img src="{{post.image.url}}" alt="">
+                                    </div>
+                                    <div class="weekly-caption">
+                                        <span class="color1">{{post.type}}</span>
+                                        <h4><a href="#">{{post.title}}</a></h4>
+                                    </div>
                                 </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div> 
-                            <div class="weekly-single active">
-                                <div class="weekly-img">
-                                        <img src="assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                        <img src="assets/img/news/weeklyNews3.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="assets/img/news/weeklyNews1.jpg" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -238,56 +193,18 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="weekly2-news-active dot-style d-flex dot-style">
-                                <div class="weekly2-single">
-                                    <div class="weekly2-img">
-                                        <img src="assets/img/news/weekly2News1.jpg" alt="">
+                                {% for post in posts_filtered_by_date %}
+                                    <div class="weekly2-single">
+                                        <div class="weekly2-img">
+                                            <img src="{{post.image.url}}" alt="">
+                                        </div>
+                                        <div class="weekly2-caption">
+                                            <span class="color1">Corporate</span>
+                                            <p>25 Jan 2020</p>
+                                            <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                        </div>
                                     </div>
-                                    <div class="weekly2-caption">
-                                        <span class="color1">Corporate</span>
-                                        <p>25 Jan 2020</p>
-                                        <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                    </div>
-                                </div> 
-                                <div class="weekly2-single">
-                                    <div class="weekly2-img">
-                                        <img src="assets/img/news/weekly2News2.jpg" alt="">
-                                    </div>
-                                    <div class="weekly2-caption">
-                                        <span class="color1">Event night</span>
-                                        <p>25 Jan 2020</p>
-                                        <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                    </div>
-                                </div> 
-                                <div class="weekly2-single">
-                                    <div class="weekly2-img">
-                                        <img src="assets/img/news/weekly2News3.jpg" alt="">
-                                    </div>
-                                    <div class="weekly2-caption">
-                                        <span class="color1">Corporate</span>
-                                        <p>25 Jan 2020</p>
-                                        <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                    </div>
-                                </div>
-                                <div class="weekly2-single">
-                                    <div class="weekly2-img">
-                                        <img src="assets/img/news/weekly2News4.jpg" alt="">
-                                    </div>
-                                    <div class="weekly2-caption">
-                                        <span class="color1">Event time</span>
-                                        <p>25 Jan 2020</p>
-                                        <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                    </div>
-                                </div> 
-                                <div class="weekly2-single">
-                                    <div class="weekly2-img">
-                                        <img src="assets/img/news/weekly2News4.jpg" alt="">
-                                    </div>
-                                    <div class="weekly2-caption">
-                                        <span class="color1">Corporate</span>
-                                        <p>25 Jan 2020</p>
-                                        <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                    </div>
-                                </div> 
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -341,6 +258,7 @@
     <!-- Jquery, Popper, Bootstrap -->
     <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
     <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.js' %}"></script>
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
     <!-- Jquery Mobile Menu -->
     <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
