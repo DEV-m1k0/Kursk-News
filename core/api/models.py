@@ -113,7 +113,7 @@ class Like(models.Model):
 
 class AdBanner(models.Model):
     """
-    Модель Лайков
+    Модель Рекламы
     """
     title = models.CharField(max_length=200, verbose_name='Название рекламы')
     image = models.ImageField(verbose_name='Каптинка новости', upload_to='ad_banner',validators=[validate_ad_image, FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],help_text="Требования: горизонтальная ориентация, соотношение 1.91:1, минимум 600x314px, размер файла до 5МБ.")
