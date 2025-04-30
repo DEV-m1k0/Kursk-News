@@ -110,12 +110,12 @@ class Like(models.Model):
         verbose_name = 'Лайк'
         verbose_name_plural = 'Лайки'
 
-class AdBanner(models.Model):
+class Banner(models.Model):
     """
     Модель Лайков
     """
     title = models.CharField(max_length=200, verbose_name='Название рекламы')
-    image = models.ImageField(verbose_name='Каптинка новости', upload_to='ad_banner',validators=[validate_image_aspect_ratio])
+    image = models.ImageField(verbose_name='Каптинка новости', upload_to='banner',validators=[validate_image_aspect_ratio])
 
     def __str__(self):
         return f'Реклама {self.title}'

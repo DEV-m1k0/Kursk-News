@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ia=06+t3h8gaq-eg#0+2vgzg+4tf(*q19s5upxncy$50-&_!#t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
 
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/uploads/'
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
 

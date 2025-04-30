@@ -7,7 +7,7 @@ class PostsView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     
-class AdView(generics.ListCreateAPIView):
-    queryset = AdBanner.objects.all()
+class BannerView(generics.ListCreateAPIView):
+    queryset = Banner.objects.all()
     serializer_class = AdSerializer
 

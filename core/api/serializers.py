@@ -14,6 +14,6 @@ class PostSerializer(serializers.ModelSerializer):
 
 class AdSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AdBanner
+        model = Banner
         fields = "__all__"
         

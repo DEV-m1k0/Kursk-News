@@ -124,12 +124,43 @@
     </div>
     <!-- Trending Area End -->
 
-    <div class="mt-5">
-        <div class="container bg-light p-5 rounded text-center">
-            <h1>Реклама</h1>
+    <div class="container">
+        <div class="ad p-5 rounded w-100 bg-secondary">
+            {% for q in qwe %}
+                {{q.image}}
+                <img style="min-width: 100px; min-height: 100px;" class="d-block" src="{{q.image}}" alt="">
+            {% endfor %}
         </div>
     </div>
-    
+
+
+
+    <div class="weekly-news-area pt-50">
+        <div class="container">
+           <div class="weekly-wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="weekly-news-active dot-style d-flex dot-style">
+                            <div class="weekly-single {% if forloop.first %} active {% endif %}">
+                                {% for ad in adbanners %}
+                                    {{ad.image.url}}
+                                    <div class="weekly-img">
+                                        <img src="{{ad.image}}" alt="">
+                                    </div>
+                                    <div class="weekly-caption">
+                                        <span class="color1">Strike</span>
+                                        <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                    </div>
+                                {% endfor %}
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>           
+
+
     <!--   Weekly-News start -->
     <div class="weekly-news-area pt-50">
         <div class="container">

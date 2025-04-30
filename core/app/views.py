@@ -15,7 +15,8 @@ class MainPageView(generic.TemplateView):
         context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/posts/').json()
         
         # Получение рекламы через API
-        context['adbanners'] = requests.get('http://127.0.0.1:8000/api/v1/ad/').json()
+        context['qwe'] = requests.get('http://127.0.0.1:8000/api/v1/banner/').json()
+        # context['ads'] = AdBanner.objects.all()
         
         # Рассчитываем дату "неделю назад"
         week_ago = timezone.now() - timedelta(days=7)
