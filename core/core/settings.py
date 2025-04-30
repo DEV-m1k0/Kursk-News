@@ -43,6 +43,16 @@ INSTALLED_APPS = [
 ]
 
 
+# Для тестирования (письма выводятся в консоль)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Для реальной отправки (используйте свои SM-данные)
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'kgpk527@gmail.com'
+EMAIL_HOST_PASSWORD = 'qwerty'
+DEFAULT_FROM_EMAIL = 'kgpk527@gmail.com'
 
 MEDIA_URL = '/uploads/'
 
@@ -110,6 +120,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Переопределение модели пользователей
 AUTH_USER_MODEL = 'api.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'api.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_REDIRECT_URL ='/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
