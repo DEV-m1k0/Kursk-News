@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .validators import validate_image_aspect_ratio
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 class CustomUser(AbstractUser):
     """
@@ -31,7 +35,7 @@ class Post(models.Model):
         ('politics', 'Политика'),
     )
     type = models.CharField(max_length=40, choices=NEWS_TYPE, verbose_name='Тип новости')
-    image = models.ImageField(verbose_name='Каптинка новости', upload_to='news_images')
+    image = models.ImageField(verbose_name='Каптинка новости', upload_to='news_images', validators=[validate_image_aspect_ratio])
     video = models.TextField(verbose_name='Видеоплеер', blank=True, null=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Заголовок')
@@ -42,6 +46,34 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self, *args, **kwargs):
+        if self.image:
+            # Открытие и обработка изображения
+            img = Image.open(self.image)
+            if img.mode in ('RGBA', 'P'):
+                img = img.convert('RGB')
+            
+            # Размер, к которому приводим изображение
+            target_size = (1024, 768)
+            img = img.resize(target_size, Image.LANCZOS)
+            
+            # Сохранение в буфер
+            output = BytesIO()
+            img.save(output, format='JPEG', quality=95)
+            output.seek(0)
+            
+            # Замена исходного файла
+            self.image = InMemoryUploadedFile(
+                output,
+                'ImageField',
+                self.image.name,
+                'uploads/jpeg',
+                output.tell(),
+                None
+            )
+        
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
@@ -83,11 +115,39 @@ class AdBanner(models.Model):
     Модель Лайков
     """
     title = models.CharField(max_length=200, verbose_name='Название рекламы')
-    image = models.ImageField(verbose_name='Каптинка новости', upload_to='ad_banner')
+    image = models.ImageField(verbose_name='Каптинка новости', upload_to='ad_banner',validators=[validate_image_aspect_ratio])
 
     def __str__(self):
         return f'Реклама {self.title}'
     
+    def save(self, *args, **kwargs):
+        if self.image:
+            # Открытие и обработка изображения
+            img = Image.open(self.image)
+            if img.mode in ('RGBA', 'P'):
+                img = img.convert('RGB')
+            
+            # Размер, к которому приводим изображение
+            target_size = (1024, 768)
+            img = img.resize(target_size, Image.LANCZOS)
+            
+            # Сохранение в буфер
+            output = BytesIO()
+            img.save(output, format='JPEG', quality=95)
+            output.seek(0)
+            
+            # Замена исходного файла
+            self.image = InMemoryUploadedFile(
+                output,
+                'ImageField',
+                self.image.name,
+                'uploads/jpeg',
+                output.tell(),
+                None
+            )
+        
+        super().save(*args, **kwargs)
+        
     class Meta:
         verbose_name = 'Реклама'
         verbose_name_plural = 'Реклама'
