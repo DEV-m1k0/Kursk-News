@@ -36,7 +36,10 @@ class MainPageView(generic.TemplateView):
             context['last_five_posts_filtered_by_likes'] = posts_filtered_by_likes[1:5]
         
         # Получение самой популярной новости по лайка. Если такой нет, то возвращаяет None
-        most_popular_post = posts_filtered_by_likes.first() if posts_filtered_by_likes.first().num_likes >0 else None
+        try:
+            most_popular_post = posts_filtered_by_likes.first() if posts_filtered_by_likes.first().num_likes >0 else None
+        except:
+            most_popular_post = None
         context['most_popular_post'] = most_popular_post
         return context
 
