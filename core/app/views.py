@@ -32,6 +32,8 @@ class MainPageView(generic.TemplateView):
             )
         ).order_by('-num_likes', '-created_at')  # Сортировка по лайкам и дате
         context['posts_filtered_by_likes'] = posts_filtered_by_likes
+        if len(posts_filtered_by_likes) > 1:
+            context['last_five_posts_filtered_by_likes'] = posts_filtered_by_likes[1:5]
         
         # Получение самой популярной новости по лайка. Если такой нет, то возвращаяет None
         try:
