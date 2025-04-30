@@ -98,15 +98,15 @@
                     </div>
                     <!-- Riht content -->
                     {%  if last_five_posts_filtered_by_likes %}
-                        <div class="col-lg-4">
+                        <div class="d-none d-lg-block col-lg-4">
                             <div class="overflow-scroll h-100">
                                 {% for popular_post in last_five_posts_filtered_by_likes %}
 
-                                    <div class="trand-right-single d-flex">
-                                        <div class="trand-right-img">
+                                    <div class="trand-right-single d-flex row">
+                                        <div class="trand-right-img col">
                                             <img class="w-100" src="{{popular_post.image.url}}" alt="">
                                         </div>
-                                        <div class="trand-right-cap">
+                                        <div class="trand-right-cap col">
                                             <span class="color1">{{popular_post.type}}</span>
                                             <h4><a href="details.html" class="text-truncate">{{popular_post.title}}</a></h4>
                                         </div>
