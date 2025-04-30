@@ -5,6 +5,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import FileExtensionValidator
+from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractUser):
     """
@@ -16,7 +17,11 @@ class CustomUser(AbstractUser):
         ('admin', 'Администратор'),
         ('redactor', 'Редактор'),
     )
+    email = models.EmailField(_('email address'), unique=True)
+    username = models.CharField(_('username'), max_length=150, unique=True)
     role = models.CharField(max_length=20, choices=ROLES, verbose_name='Роль', default='user')
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
     
     class Meta:
         verbose_name = 'Пользователь'

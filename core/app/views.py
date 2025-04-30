@@ -5,8 +5,16 @@ from django.utils import timezone
 from datetime import  timedelta
 from api.models import *
 from django.db.models import Count, Q
+from api.views import *
+from django.views.generic import CreateView
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+from api.forms import CustomUserCreationForm, EmailAuthenticationForm
 
 class MainPageView(generic.TemplateView):
+    """
+    Представление главной страницы сайта
+    """
     template_name = 'index.html'
     
     def get_context_data(self, **kwargs):
@@ -44,3 +52,17 @@ class MainPageView(generic.TemplateView):
         context['most_popular_post'] = most_popular_post
         return context
 
+class CustomLoginView(LoginView):
+    """
+    Представление страницы входа на сайте
+    """
+    form_class = EmailAuthenticationForm
+    template_name = 'login.html'
+
+class SignUpView(CreateView):
+    """
+    Представление страницы регистрации аккаунта на сайте
+    """
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'signup.html'
