@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from app.views import *
 from django.views.generic import TemplateView
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
