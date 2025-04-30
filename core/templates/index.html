@@ -54,7 +54,13 @@
     {% include 'components/header.html' %}
 
     <main>
-
+        {% for ad in adbanners %}
+    <img 
+        src="{{ ad.image }}" 
+        alt="{{ ad.title }}"
+        style="max-width: 100%; height: auto;"
+    >
+{% endfor %}
     <!-- Trending Area Start -->
     <div class="trending-area fix">
         <div class="container">

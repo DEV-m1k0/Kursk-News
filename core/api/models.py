@@ -113,7 +113,7 @@ class Like(models.Model):
 
 class Banner(models.Model):
     """
-    Модель Лайков
+    Модель Рекламы
     """
     title = models.CharField(max_length=200, verbose_name='Название рекламы')
     image = models.ImageField(verbose_name='Каптинка новости', upload_to='banner',validators=[validate_image_aspect_ratio])
