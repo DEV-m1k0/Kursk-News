@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=c3427b60-6891-4d79-9982-d4092ee76b3a"></script>
 
@@ -55,96 +57,103 @@
     {% include 'components/header.html' %}
 
     <main>
-        {% for ad in adbanners %}
-    <img 
-        src="{{ ad.image }}" 
-        alt="{{ ad.title }}"
-        style="max-width: 100%; height: auto;"
-    >
-{% endfor %}
     <!-- Trending Area Start -->
-    <div class="trending-area fix">
-        <div class="container">
-            <div class="trending-main">
-                <!-- Trending Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="trending-tittle">
-                            <strong>Сейчас в тренде</strong>
-                            <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-                            <div class="trending-animated">
-                                <ul id="js-news" class="js-hidden">
-                                    <li class="news-item">{{most_popular_post}}</li>
-                                </ul>
+    {% if most_popular_post %}
+        <div class="trending-area fix">
+            <div class="container">
+                <div class="trending-main">
+                    <!-- Trending Tittle -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="trending-tittle">
+                                <strong>Сейчас в тренде</strong>
+                                <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
+                                <div class="trending-animated">
+                                    <ul id="js-news" class="js-hidden">
+                                        <li class="news-item">{{most_popular_post}}</li>
+                                    </ul>
+                                </div>
+                                
                             </div>
-                            
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    {% if last_five_posts_filtered_by_likes %}
-                    <div class="col-lg-8">
-                    {% else %}
-                    <div class="col-lg-12">
-                    {% endif %}
-                        <!-- Trending Top -->
-                        <a href="">
-                            <div class="trending-top mb-30">
-                                <div class="trend-top-img">
-                                    <img src="{{most_popular_post.image.url}}" alt="">
-                                    <div class="trend-top-cap">
-                                        <span>{{most_popular_post.type}}</span>
-                                        <h2 class="text-white text-truncate">{{most_popular_post.title}}</h2>
+                    <div class="row">
+                        {% if last_five_posts_filtered_by_likes %}
+                            <div class="col-lg-8">
+                                <!-- Trending Top -->
+                                <a href="">
+                                    <div class="trending-top mb-30">
+                                        <div class="trend-top-img">
+                                            <img src="{{most_popular_post.image.url}}" alt="">
+                                            <div class="trend-top-cap">
+                                                <span>{{most_popular_post.type}}</span>
+                                                <h2 class="text-white text-truncate">{{most_popular_post.title}}</h2>
+                                            </div>
+                                        </div>
                                     </div>
+                                </a>
+                                <div class="mb-3" style="
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 7;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                ">
+                                    {{most_popular_post.content}}
                                 </div>
                             </div>
-                        </a>
-                        <div class="">
-                            {{most_popular_post.content}}
-                        </div>
-                    </div>
-                    <!-- Riht content -->
-                    {%  if last_five_posts_filtered_by_likes %}
-                        <div class="d-none d-lg-block col-lg-4">
-                            <div class="h-100">
-                                {% for popular_post in last_five_posts_filtered_by_likes %}
-
-                                    <div class="trand-right-single d-flex row">
-                                        <div class="trand-right-img col">
-                                            <img class="w-100" src="{{popular_post.image.url}}" alt="">
+                        {% else %}
+                            <a href="">
+                                <div class="card mb-3 border-0 mb-5">
+                                    <div class="row g-0">
+                                        <div class="col-md-4 ps-0">
+                                            <img src="{{most_popular_post.image.url}}" class="img-fluid rounded-start" alt="...">
                                         </div>
-                                        <div class="trand-right-cap col">
-                                            <span class="color1">{{popular_post.type}}</span>
-                                            <h4><a href="details.html" class="text-truncate">{{popular_post.title}}</a></h4>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{most_popular_post.title}}</h5>
+                                                <p class="card-text" style="
+                                                            display: -webkit-box;
+                                                            -webkit-line-clamp: 7;
+                                                            -webkit-box-orient: vertical;
+                                                            overflow: hidden;
+                                                            text-overflow: ellipsis;
+                                                ">{{most_popular_post.content}}</p>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                        <!-- Riht content -->
+                        {% if last_five_posts_filtered_by_likes %}
+                            <div class="d-none d-lg-block col-lg-4">
+                                <div class="h-100">
+                                    {% for popular_post in last_five_posts_filtered_by_likes %}
 
-                                {% endfor %}
+                                        <div class="trand-right-single d-flex row">
+                                            <div class="trand-right-img col">
+                                                <img class="w-100" src="{{popular_post.image.url}}" alt="">
+                                            </div>
+                                            <div class="trand-right-cap col">
+                                                <span class="color1">{{popular_post.type}}</span>
+                                                <h4><a href="details.html" class="text-truncate">{{popular_post.title}}</a></h4>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </div>
-                    {% else %}
-                        
-                    {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
     <!-- Trending Area End -->
 
 
-    <!-- ------------------------------- Реклама ------------------------------- -->
-     <div class="container my-5">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                {% for banner in banners %}
-                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                        <img src="{{banner.image}}" style="max-height: 300px;" class="d-block w-100" alt="...">
-                    </div>
-                {% endfor %}
-            </div>
-          </div>
-     </div>
-    <!-- ------------------------------ /Реклама ------------------------------- -->
+
 
 
     <!--   Weekly-News start -->
@@ -155,31 +164,56 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-tittle mb-30">
-                            <h3>Самые популярные новости за последнюю неделю</h3>
+                            <h3>Популярные новости за последнюю неделю</h3>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="weekly-news-active dot-style d-flex dot-style">
-                            {% for post in posts_filtered_by_likes %}
-                                <div class="weekly-single">
-                                    <div class="weekly-img">
-                                        <img src="{{post.image.url}}" alt="">
+                        {% if posts_filtered_by_likes %}
+                            <div class="weekly-news-active dot-style d-flex dot-style">
+                                {% for post in posts_filtered_by_likes %}
+                                    <div class="weekly-single">
+                                        <div class="weekly-img">
+                                            <img src="{{post.image.url}}" alt="">
+                                        </div>
+                                        <div class="weekly-caption">
+                                            <span class="color1">{{post.type}}</span>
+                                            <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
+                                        </div>
                                     </div>
-                                    <div class="weekly-caption">
-                                        <span class="color1">{{post.type}}</span>
-                                        <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <h4 class="text-dark-emphasis text-center">Новости отсутсвтуют</h4>
+                        {% endif %}
                     </div>
                 </div>
            </div>
         </div>
     </div>           
     <!-- End Weekly-News -->
+
+
+        <!-- ------------------------------- Реклама ------------------------------- -->
+        <div class="container my-5">
+            {% if banners %}
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for banner in banners %}
+                            <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                                <img src="{{banner.image}}" style="max-height: 300px;" class="d-block w-100" alt="...">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-dark p-4">
+                    <h4 class="text-center">Здесь могла бы быть ваша реклама</h4>
+                </div>
+            {% endif %}
+         </div>
+        <!-- ------------------------------ /Реклама ------------------------------- -->
 
     
     <div class="gray-bg pb-5">
@@ -198,19 +232,23 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="weekly2-news-active dot-style d-flex dot-style">
-                                {% for post in posts_filtered_by_date %}
-                                    <div class="weekly2-single">
-                                        <div class="weekly2-img">
-                                            <img src="{{post.image.url}}" alt="">
+                            {% if posts_filtered_by_date %}
+                                <div class="weekly2-news-active dot-style d-flex dot-style">
+                                    {% for post in posts_filtered_by_date %}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="{{post.image.url}}" alt="">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <span class="color1">{{post.type}}</span>
+                                                <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
+                                            </div>
                                         </div>
-                                        <div class="weekly2-caption">
-                                            <span class="color1">{{post.type}}</span>
-                                            <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <h4 class="text-dark-emphasis text-center">Новости отсутсвтуют</h4>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

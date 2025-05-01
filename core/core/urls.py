@@ -23,13 +23,15 @@ from django.contrib.auth import views as auth_views
 from api.forms import (
     MyPasswordResetForm,
     MySetPasswordForm
-    )
+)
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
     path('', MainPageView.as_view(), name='index'),
     path('login/', CustomLoginView.as_view(), name='login'),
+    path('category/', TemplateView.as_view(template_name='category.html'), name='category'),
     
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(
