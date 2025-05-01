@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- ------------------------------ Заголовок ------------------------------ -->
+{% block title %}Создание{% endblock %}
+<!-- ----------------------------- /Заголовок ------------------------------ -->
+
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Создать пост</button>
+</form>
+{% endblock %}

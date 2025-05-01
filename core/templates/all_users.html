@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- ------------------------------ Заголовок ------------------------------ -->
+{% block title %}Создание{% endblock %}
+<!-- ----------------------------- /Заголовок ------------------------------ -->
+
+{% block body %}
+{% for user in users %}
+<button>{{user.username}}</button> <br>
+{% endfor %}
+{% endblock %}

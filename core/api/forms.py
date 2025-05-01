@@ -8,6 +8,15 @@ from django.contrib.auth.forms import (
     UserCreationForm
 )
 
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['type', 'image', 'video', 'title', 'content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 7}),
+            'image': forms.ClearableFileInput(attrs={'accept': 'image/jpeg,image/png'}),
+        }
+        
 class MySetPasswordForm(SetPasswordForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

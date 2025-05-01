@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.views.generic.base import ContextMixin
 import requests
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from datetime import  timedelta
 from api.models import *
@@ -10,7 +11,7 @@ from api.views import *
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm
+from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -88,7 +89,7 @@ class CategoryView(TemplateView, ContextMixin):
 
         # Получение новостей через API
         try:
-            context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/posts/').json()
+            context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/approvedposts/').json()
         except:
             context['posts'] = None
         context['categories'] = ['Спорт','Политика']
@@ -177,7 +178,7 @@ class PostByIdView(TemplateView):
         
         return redirect('postdetail', id=post_id)
     
-class ProfileView(TemplateView):
+class ProfileView(TemplateView, LoginRequiredMixin):
     """
     Представление профиля пользователя
     """
@@ -221,3 +222,42 @@ class SubscribeView(TemplateView):
         else:
             messages.success(request, "Вы успешно подписались!")
         return redirect('profile', username=username)
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    """
+    Представление создания новости
+    """
+    model = Post
+    form_class = PostForm
+    template_name = 'create_post.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+class AllUsersView(TemplateView, ContextMixin):
+    """
+    Представление страницы со всеми пользователями 
+    """
+    template_name = 'all_users.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Получение пользователей через API
+        context['users'] = requests.get('http://127.0.0.1:8000/api/v1/users/').json()
+        return context
+
+class OnReviewPostsView(TemplateView, ContextMixin):
+    """
+    Представление страницы с новостями на рассмотрении
+    """
+    template_name = 'on_review.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Получение пользователей через API
+        context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/postsonreview/').json()
+        return context

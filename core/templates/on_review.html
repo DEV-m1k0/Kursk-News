@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- ------------------------------ Заголовок ------------------------------ -->
+{% block title %}Создание{% endblock %}
+<!-- ----------------------------- /Заголовок ------------------------------ -->
+
+{% block body %}
+{% for post in posts %}
+<button>{{post.title}}</button> <br>
+{% endfor %}
+{% endblock %}

@@ -4,12 +4,29 @@ from .models import *
 from .serializers import *
 
 
-class PostsView(generics.ListCreateAPIView):
+class ApprovedPostsView(generics.ListCreateAPIView):
     """
-    Апи для всех новостей
+    Апи для всех утвержденных новостей
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    
+    def get(self, request):
+        obj = Post.objects.filter(status='Утверждена')
+        serializer = PostSerializer(obj, many=True)
+        return response.Response(serializer.data)
+
+class OnReviewPostsView(generics.ListCreateAPIView):
+    """
+    Апи для всех утвержденных новостей
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    
+    def get(self, request):
+        obj = Post.objects.filter(status='На рассмотрении')
+        serializer = PostSerializer(obj, many=True)
+        return response.Response(serializer.data)
     
 class BannerView(generics.ListCreateAPIView):
     """
@@ -42,7 +59,11 @@ class PostInfoView(generics.RetrieveAPIView):
     serializer_class = PostSerializer
     lookup_field = "id"
     
+class PostInfoView(generics.ListAPIView):
+    """
+    Апи для получения всех пользователей
+    """
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
     
-    
-
 
