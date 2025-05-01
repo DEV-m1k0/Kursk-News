@@ -1,6 +1,32 @@
 from django import forms
 from .models import *
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+    UserCreationForm
+)
+
+class MySetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['new_password1'].widget.attrs = {
+            'class': "form-control"
+        }
+        self.fields['new_password2'].widget.attrs = {
+            'class': "form-control"
+        }
+
+class MyPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['email'].widget.attrs = {
+            'class': "form-control"
+        }
+
 
 class CommentForm(forms.ModelForm):
     """
@@ -14,7 +40,17 @@ class EmailAuthenticationForm(AuthenticationForm):
     """
     Форма для входа с помощью почты
     """
-    username = forms.EmailField(label='Email')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['password'].widget.attrs = {
+            'class': 'form-control'
+        }
+
+    username = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+    }))
+
 
 class CustomUserCreationForm(UserCreationForm):
     """

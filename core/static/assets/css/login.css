@@ -1,0 +1,15 @@
+form {
+    left: 50%;
+    top: 50%;
+
+    width: 50vw;
+
+    transform: translate(-50%, -50%);
+}
+
+
+@media screen and (max-width: 991px) {
+    form {
+        width: 100%;
+    }
+}

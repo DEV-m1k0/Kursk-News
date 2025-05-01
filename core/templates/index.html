@@ -94,7 +94,7 @@
                                     <img src="{{most_popular_post.image.url}}" alt="">
                                     <div class="trend-top-cap">
                                         <span>{{most_popular_post.type}}</span>
-                                        <h2 class="text-white">{{most_popular_post.title}}</h2>
+                                        <h2 class="text-white text-truncate">{{most_popular_post.title}}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -163,13 +163,13 @@
                     <div class="col-12">
                         <div class="weekly-news-active dot-style d-flex dot-style">
                             {% for post in posts_filtered_by_likes %}
-                                <div class="weekly-single {% if forloop.first %} active {% endif %}">
+                                <div class="weekly-single">
                                     <div class="weekly-img">
                                         <img src="{{post.image.url}}" alt="">
                                     </div>
                                     <div class="weekly-caption">
                                         <span class="color1">{{post.type}}</span>
-                                        <h4><a href="#">{{post.title}}</a></h4>
+                                        <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -205,9 +205,8 @@
                                             <img src="{{post.image.url}}" alt="">
                                         </div>
                                         <div class="weekly2-caption">
-                                            <span class="color1">Corporate</span>
-                                            <p>25 Jan 2020</p>
-                                            <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
+                                            <span class="color1">{{post.type}}</span>
+                                            <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
                                         </div>
                                     </div>
                                 {% endfor %}
