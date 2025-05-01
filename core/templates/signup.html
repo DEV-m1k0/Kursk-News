@@ -3,14 +3,13 @@
 
 
 <!-- ------------------------------ Заголовок ------------------------------ -->
-{% block title %}Логин{% endblock %}
+{% block title %}Регистрация{% endblock %}
 <!-- ----------------------------- /Заголовок ------------------------------ -->
 
 
 <!-- ------------------------------- Ссылки -------------------------------- -->
 {% block links %}
 
-<link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/ticker-style.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
@@ -21,12 +20,10 @@
 <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-<link rel="stylesheet" href="{% static 'assets/css/form.css' %}">
-<link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
-
-
-
 
 {% endblock %}
 <!-- ------------------------------- /Ссылки ------------------------------- -->
@@ -35,44 +32,87 @@
 <!-- ------------------------------- Контент ------------------------------- -->
 {% block body %}
 
-    {% include 'components/header.html' %}
-    <div class="container position-relative" style="min-height: 70vh;">
-      <form class="bg-primary p-5 rounded shadow position-absolute" method="post">
-        {% csrf_token %}
+{% include 'components/header.html' %}
 
-        <h2 class="text-white">
-          Вход в аккаунт
-        </h2>
+<div class="container position-relative mt-3" style="min-height: 80vh;">
+    <form class="bg-primary p-3 p-sm-5 rounded shadow position-absolute" method="post">
+      {% csrf_token %}
 
-        <div class="mt-4">
-          <b class="text-white">Почта:</b>
-          <div class="">
-            {{form.username}}
-            <small class="text-white">Введите вашу почту</small>
-          </div>
+      <h2 class="text-white">
+        Регистрация аккаунта
+      </h2>
+
+      <div class="mt-4">
+        <b class="text-white">{{form.username.label}}:</b>
+        <div class="">
+          {{form.username}}
+          <small class="text-white">{{form.username.help_text}}</small>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <b class="text-white">{{form.email.label}}:</b>
+        <div class="">
+          {{form.email}}
+          <small class="text-white">{{form.email.help_text}}</small>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <b class="text-white">{{form.password1.label}}:</b>
+        <div class="">
+          {{form.password1}}
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <b class="text-white">{{form.password2.label}}:</b>
+        <div class="">
+            {{form.password2}}
+            <small class="text-white">{{form.password2.help_text}}</small>
+        </div>
+      </div>
+
+      <button class="btn btn-outline-light w-100 my-4" type="submit">Зарегестрироваться</button>
+      <div class="row">
+        <div class="col">
+          <a class="text-white" href="{% url 'login' %}">Уже есть аккаунт?</a>
         </div>
 
-        <div class="mt-4">
-          <b class="text-white">Пароль:</b>
-          <div class="">
-            {{form.password}}
-            <small class="text-white">Введите ваш пароль</small>
-          </div>
-        </div>
+    </form>
+  </div>
 
-        <button class="btn btn-outline-light w-100 my-4" type="submit">Войти</button>
-        <div class="row">
-          <div class="col">
-            <a class="text-white" href="{% url 'password_reset' %}">Забыли пароль?</a>
-            
-          </div>
-          <div class="col text-end">
-            <a class="text-white" href="{% url 'signup' %}">Нет аккаунта?</a>
-          </div>
-        </div>
+  {% if form.errors %}
 
-      </form>
+    <div class="toast-container position-absolute bottom-0 end-0">
+        <div class="toast show fade">
+            <div class="toast-body bg-danger text-white rounded">
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>
+                                {{form.password2.errors}}
+                            </li>
+                            <li>
+                                {{form.password1.errors}}
+                            </li>
+                            <li>
+                                {{form.username.errors}}
+                            </li>
+                            <li>
+                                {{form.email.errors}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-close btn-close-white" data-bs-dismiss="toast" type="button"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+  {% endif %}
 
 {% endblock %}
 <!-- ------------------------------ /Контент ------------------------------- -->
@@ -120,7 +160,6 @@
         <!-- Jquery Plugins, main Jquery -->	
         <script src="{% static 'assets/js/plugins.js' %}"></script>
         <script src="{% static 'assets/js/main.js' %}"></script>
-
 
 {% endblock %}
 <!-- ------------------------------ /Скрипты ------------------------------- -->
