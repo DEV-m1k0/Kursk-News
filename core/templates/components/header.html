@@ -43,7 +43,15 @@
                                     <ul id="navigation" class="d-flex justify-content-end">    
                                         <li><a href="{% url 'index' %}">Главная</a></li>
                                         <li><a href="{% url 'category' %}">Новости</a></li>
-                                        <li><a href="{% url 'login' %}">Войти</a></li>
+                                        {% if request.user.is_authenticated %}
+                                            <li><a href="#">Страницы</a>
+                                                <ul class="submenu">
+                                                    <li><a href="elements.html">Профиль</a></li>
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li><a href="{% url 'login' %}">Войти</a></li>
+                                        {% endif %}
                                         <!-- -------------------------------- Поиск -------------------------------- -->
                                         <li class="align-content-center">
                                             <div class="d-none d-md-block">
