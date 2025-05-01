@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     path('', MainPageView.as_view(), name='index'),
     path('login/', CustomLoginView.as_view(), name='login'),
+    path('category', CategoryView.as_view(), name='category'),
     
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(email_template_name='registration/password_reset_email.html'), name='password_reset'),

@@ -6,7 +6,7 @@ from datetime import  timedelta
 from api.models import *
 from django.db.models import Count, Q
 from api.views import *
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from api.forms import CustomUserCreationForm, EmailAuthenticationForm
@@ -20,10 +20,13 @@ class MainPageView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Получение новостей через API
-        context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/posts/').json()
+        try:
+            context['news'] = requests.get('http://127.0.0.1:8000/api/v1/posts/').json()
+        except:
+            context['news'] = None
         
         # Получение рекламы через API
-        context['qwe'] = requests.get('http://127.0.0.1:8000/api/v1/banner/').json()
+        context['banner'] = requests.get('http://127.0.0.1:8000/api/v1/banner/').json()
         # context['ads'] = AdBanner.objects.all()
         
         # Рассчитываем дату "неделю назад"
@@ -66,3 +69,16 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+    
+class CategoryView(TemplateView):
+    template_name = 'categori.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Получение новостей через API
+        try:
+            context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/posts/').json()
+        except:
+            context['posts'] = None
+        context['categories'] = ['Спорт','Политика']
+        return context
