@@ -96,13 +96,10 @@ class CategoryView(TemplateView, ContextMixin):
             cat = request.GET['category']
             if cat == 'all':
                 all_news = Post.objects.all()
-                print(all_news[0].type)
             else:
                 all_news = Post.objects.filter(type=cat)
         else:
             all_news = Post.objects.all().order_by('-created_at')
-
-        print(all_news)
 
         paginator = Paginator(all_news, 4)  # Show 10 news per page
         
