@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
+from django.views.generic.base import ContextMixin
 import requests
 from django.utils import timezone
 from datetime import  timedelta
@@ -10,6 +11,7 @@ from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from api.forms import CustomUserCreationForm, EmailAuthenticationForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class MainPageView(generic.TemplateView):
     """
@@ -71,11 +73,13 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
     
-class CategoryView(TemplateView):
+
+class CategoryView(TemplateView, ContextMixin):
     template_name = 'category.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         # Получение новостей через API
         try:
             context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/posts/').json()
@@ -83,3 +87,34 @@ class CategoryView(TemplateView):
             context['posts'] = None
         context['categories'] = ['Спорт','Политика']
         return context
+    
+    def get(self, request = None, *args, **kwargs):
+        context = self.get_context_data()
+        news = []
+
+        page = request.GET.get('page', 1)
+
+        if 'category' in request.GET:
+            cat = request.GET['category']
+            if cat == 'all':
+                all_news = Post.objects.all()
+                print(all_news[0].type)
+            else:
+                all_news = Post.objects.filter(type=cat)
+        else:
+            all_news = Post.objects.all().order_by('-created_at')
+
+        print(all_news)
+
+        paginator = Paginator(all_news, 4)  # Show 10 news per page
+        
+        try:
+            news = paginator.page(page)
+        except PageNotAnInteger:
+            news = paginator.page(1)
+        except EmptyPage:
+            news = paginator.page(paginator.num_pages)
+
+        context['news'] = news
+
+        return render(request, self.template_name, context)
