@@ -42,7 +42,8 @@ class MainPageView(generic.TemplateView):
                 'likes',
                 filter=Q(likes__created_at__gte=week_ago) # Фильтр лайков за неделю
             )
-        ).order_by('-num_likes', '-created_at')  # Сортировка по лайкам и дате
+        ).order_by('-num_likes', '-created_at')
+        # Сортировка по лайкам и дате
         context['posts_filtered_by_likes'] = posts_filtered_by_likes
         if len(posts_filtered_by_likes) > 1:
             context['last_five_posts_filtered_by_likes'] = posts_filtered_by_likes[1:5]
@@ -71,7 +72,7 @@ class SignUpView(CreateView):
     template_name = 'signup.html'
     
 class CategoryView(TemplateView):
-    template_name = 'categori.html'
+    template_name = 'category.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

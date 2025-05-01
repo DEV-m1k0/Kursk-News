@@ -1,0 +1,21 @@
+[
+{
+    "model": "api.customuser",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$jkjYCreuqVQHOhAoK6vmFi$If2FlbZXfvTl3GbfHVYs/xKN+UwcceLI1orH9DaocDY=",
+        "last_login": "2025-05-01T13:28:12.680Z",
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-05-01T13:27:53.898Z",
+        "email": "admin@gmail.com",
+        "username": "admin",
+        "role": "user",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
