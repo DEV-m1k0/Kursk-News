@@ -44,14 +44,16 @@ INSTALLED_APPS = [
 
 
 # Для тестирования (письма выводятся в консоль)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Для реальной отправки (используйте свои SM-данные)
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kgpk527@gmail.com'
-EMAIL_HOST_PASSWORD = 'qwerty'
+EMAIL_HOST_PASSWORD = 'uscd oscb exov mpil'
 DEFAULT_FROM_EMAIL = 'kgpk527@gmail.com'
 
 MEDIA_URL = '/uploads/'
