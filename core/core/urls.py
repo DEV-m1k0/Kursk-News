@@ -24,7 +24,7 @@ from api.forms import (
     MyPasswordResetForm,
     MySetPasswordForm
 )
-from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +33,7 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('category/', CategoryView.as_view(), name='category'),
+    path('post/<int:id>/',PostByIdView.as_view(), name='postdetail'),
     
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(

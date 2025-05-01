@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.views.generic.base import ContextMixin
 import requests
@@ -10,7 +10,7 @@ from api.views import *
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from api.forms import CustomUserCreationForm, EmailAuthenticationForm
+from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class MainPageView(generic.TemplateView):
@@ -104,8 +104,6 @@ class CategoryView(TemplateView, ContextMixin):
         else:
             all_news = Post.objects.all().order_by('-created_at')
 
-        print(all_news)
-
         paginator = Paginator(all_news, 4)  # Show 10 news per page
         
         try:
@@ -118,3 +116,54 @@ class CategoryView(TemplateView, ContextMixin):
         context['news'] = news
 
         return render(request, self.template_name, context)
+
+class PostByIdView(TemplateView):
+    template_name = 'details.html'
+    
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        post_id = kwargs['id']
+        
+        # Получение данных о посте
+        post_response = requests.get(f"http://127.0.0.1:8000/api/v1/post/{post_id}/")
+        context['postinfo'] = post_response.json
+        
+        # Комментарии и форма
+        context['comments'] = Comment.objects.filter(post_id=post_id).order_by('-created_at')
+        context['comment_form'] = CommentForm()
+        
+        # Информация о лайках
+        context['likes_count'] = Like.objects.filter(post_id=post_id).count()
+        context['has_liked'] = False
+        if self.request.user.is_authenticated:
+            context['has_liked'] = Like.objects.filter(
+                post_id=post_id, 
+                user=self.request.user
+            ).exists()
+            
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs['id']
+        post = Post.objects.get(id=post_id)
+        
+        # Обработка комментариев
+        if 'add_comment' in request.POST:
+            form = CommentForm(request.POST)
+            if form.is_valid() and request.user.is_authenticated:
+                Comment.objects.create(
+                    post=post,
+                    user=request.user,
+                    text=form.cleaned_data['text']
+                )
+        
+        # Обработка лайков
+        elif 'toggle_like' in request.POST and request.user.is_authenticated:
+            like, created = Like.objects.get_or_create(
+                post=post,
+                user=request.user
+            )
+            if not created:
+                like.delete()
+        
+        return redirect('postdetail', id=post_id)

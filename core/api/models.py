@@ -12,10 +12,10 @@ class CustomUser(AbstractUser):
     Модель Пользователей
     """
     ROLES = (
-        ('user', 'Пользователь'),
-        ('copywriter', 'Копирайтер'),
-        ('admin', 'Администратор'),
-        ('redactor', 'Редактор'),
+        ('Пользователь', 'Пользователь'),
+        ('Копирайтер', 'Копирайтер'),
+        ('Администратор', 'Администратор'),
+        ('Редактор', 'Редактор'),
     )
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(_('username'), max_length=150, unique=True)
@@ -32,9 +32,9 @@ class Post(models.Model):
     Модель Новостей
     """
     NEWS_STATUS = (
-        ('under_consideration', 'На рассмотрении'),
-        ('approver', 'Утверждена'),
-        ('rejected', 'Отклонена')
+        ('На рассмотрении', 'На рассмотрении'),
+        ('Утверждена', 'Утверждена'),
+        ('Отклонена', 'Отклонена')
     )
     NEWS_TYPE = (
         ('Спорт', 'Спорт'),
