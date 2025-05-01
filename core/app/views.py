@@ -12,6 +12,9 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from django.contrib import messages
 
 class MainPageView(generic.TemplateView):
     """
@@ -75,6 +78,9 @@ class SignUpView(CreateView):
     
 
 class CategoryView(TemplateView, ContextMixin):
+    """
+    Представление страницы со всеми новостями и категориями
+    """
     template_name = 'category.html'
     
     def get_context_data(self, **kwargs):
@@ -118,6 +124,9 @@ class CategoryView(TemplateView, ContextMixin):
         return render(request, self.template_name, context)
 
 class PostByIdView(TemplateView):
+    """
+    Представление новости по id
+    """
     template_name = 'details.html'
     
     def get_context_data(self,**kwargs):
@@ -167,3 +176,48 @@ class PostByIdView(TemplateView):
                 like.delete()
         
         return redirect('postdetail', id=post_id)
+    
+class ProfileView(TemplateView):
+    """
+    Представление профиля пользователя
+    """
+    template_name = 'profile.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = kwargs['username']
+        user = get_object_or_404(CustomUser, username=username)
+        is_subscribed = False
+    
+        if self.request.user.is_authenticated:
+            is_subscribed = Subscription.objects.filter(
+                user=self.request.user, 
+                author=user
+            ).exists()
+        context['userinfo'] = user
+        context['is_subscribed'] = is_subscribed
+        return context
+
+class SubscribeView(TemplateView):
+    """
+    Обработчик подписки/отписки на пользователя
+    """
+    template_name = 'profile.html'
+    
+    def post(self, request, username):
+        author = get_object_or_404(CustomUser, username=username)
+
+        if request.user == author:
+            return HttpResponseForbidden("Нельзя подписаться на самого себя!")
+        
+        subscription, created = Subscription.objects.get_or_create(
+            user=request.user,
+            author=author
+        )
+        
+        if not created:
+            subscription.delete()
+            messages.success(request, "Вы успешно отписались!")
+        else:
+            messages.success(request, "Вы успешно подписались!")
+        return redirect('profile', username=username)

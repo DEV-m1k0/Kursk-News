@@ -3,7 +3,9 @@ from PIL import Image, ImageOps
 from io import BytesIO
 
 def validate_image_aspect_ratio(image):
-    """"""
+    """
+    Валидация картинки по размеру
+    """
     img = Image.open(image)
     width, height = img.size
     target_ratio = 4 / 3  # Соотношение 4:3

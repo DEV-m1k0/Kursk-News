@@ -34,6 +34,8 @@ urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path('category/', CategoryView.as_view(), name='category'),
     path('post/<int:id>/',PostByIdView.as_view(), name='postdetail'),
+    path('profile/<str:username>/', ProfileView.as_view(), name='profile'),
+    path('subscribe/<str:username>/', SubscribeView.as_view(), name='toggle_subscription'),
     
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(
