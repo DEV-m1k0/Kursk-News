@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.views.generic.base import ContextMixin
 import requests
@@ -10,8 +10,11 @@ from api.views import *
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from api.forms import CustomUserCreationForm, EmailAuthenticationForm
+from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from django.contrib import messages
 
 class MainPageView(generic.TemplateView):
     """
@@ -44,7 +47,8 @@ class MainPageView(generic.TemplateView):
                 'likes',
                 filter=Q(likes__created_at__gte=week_ago) # Фильтр лайков за неделю
             )
-        ).order_by('-num_likes', '-created_at')  # Сортировка по лайкам и дате
+        ).order_by('-num_likes', '-created_at')
+        # Сортировка по лайкам и дате
         context['posts_filtered_by_likes'] = posts_filtered_by_likes
         if len(posts_filtered_by_likes) > 1:
             context['last_five_posts_filtered_by_likes'] = posts_filtered_by_likes[1:5]
@@ -72,7 +76,11 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
     
+
 class CategoryView(TemplateView, ContextMixin):
+    """
+    Представление страницы со всеми новостями и категориями
+    """
     template_name = 'category.html'
     
     def get_context_data(self, **kwargs):
@@ -113,3 +121,102 @@ class CategoryView(TemplateView, ContextMixin):
         context['news'] = news
 
         return render(request, self.template_name, context)
+
+class PostByIdView(TemplateView):
+    """
+    Представление новости по id
+    """
+    template_name = 'details.html'
+    
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        post_id = kwargs['id']
+        
+        # Получение данных о посте
+        post_response = requests.get(f"http://127.0.0.1:8000/api/v1/post/{post_id}/")
+        context['postinfo'] = post_response.json
+        
+        # Комментарии и форма
+        context['comments'] = Comment.objects.filter(post_id=post_id).order_by('-created_at')
+        context['comment_form'] = CommentForm()
+        
+        # Информация о лайках
+        context['likes_count'] = Like.objects.filter(post_id=post_id).count()
+        context['has_liked'] = False
+        if self.request.user.is_authenticated:
+            context['has_liked'] = Like.objects.filter(
+                post_id=post_id, 
+                user=self.request.user
+            ).exists()
+            
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs['id']
+        post = Post.objects.get(id=post_id)
+        
+        # Обработка комментариев
+        if 'add_comment' in request.POST:
+            form = CommentForm(request.POST)
+            if form.is_valid() and request.user.is_authenticated:
+                Comment.objects.create(
+                    post=post,
+                    user=request.user,
+                    text=form.cleaned_data['text']
+                )
+        
+        # Обработка лайков
+        elif 'toggle_like' in request.POST and request.user.is_authenticated:
+            like, created = Like.objects.get_or_create(
+                post=post,
+                user=request.user
+            )
+            if not created:
+                like.delete()
+        
+        return redirect('postdetail', id=post_id)
+    
+class ProfileView(TemplateView):
+    """
+    Представление профиля пользователя
+    """
+    template_name = 'profile.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = kwargs['username']
+        user = get_object_or_404(CustomUser, username=username)
+        is_subscribed = False
+    
+        if self.request.user.is_authenticated:
+            is_subscribed = Subscription.objects.filter(
+                user=self.request.user, 
+                author=user
+            ).exists()
+        context['userinfo'] = user
+        context['is_subscribed'] = is_subscribed
+        return context
+
+class SubscribeView(TemplateView):
+    """
+    Обработчик подписки/отписки на пользователя
+    """
+    template_name = 'profile.html'
+    
+    def post(self, request, username):
+        author = get_object_or_404(CustomUser, username=username)
+
+        if request.user == author:
+            return HttpResponseForbidden("Нельзя подписаться на самого себя!")
+        
+        subscription, created = Subscription.objects.get_or_create(
+            user=request.user,
+            author=author
+        )
+        
+        if not created:
+            subscription.delete()
+            messages.success(request, "Вы успешно отписались!")
+        else:
+            messages.success(request, "Вы успешно подписались!")
+        return redirect('profile', username=username)

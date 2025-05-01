@@ -81,7 +81,7 @@
                         {% if last_five_posts_filtered_by_likes %}
                             <div class="col-lg-8">
                                 <!-- Trending Top -->
-                                <a href="">
+                                <a href="{% url 'postdetail' most_popular_post.pk  %}">
                                     <div class="trending-top mb-30">
                                         <div class="trend-top-img">
                                             <img src="{{most_popular_post.image.url}}" alt="">
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                         {% else %}
-                            <a href="">
+                            <a href="{% url 'postdetail' most_popular_post.pk %}">
                                 <div class="card mb-3 border-0 mb-5">
                                     <div class="row g-0">
                                         <div class="col-md-4 ps-0">
@@ -137,7 +137,7 @@
                                             </div>
                                             <div class="trand-right-cap col">
                                                 <span class="color1">{{popular_post.type}}</span>
-                                                <h4><a href="details.html" class="text-truncate">{{popular_post.title}}</a></h4>
+                                                <h4><a href="{% url 'postdetail' popular_post.pk %}" class="text-truncate">{{popular_post.title}}</a></h4>
                                             </div>
                                         </div>
 
@@ -179,7 +179,7 @@
                                         </div>
                                         <div class="weekly-caption">
                                             <span class="color1">{{post.type}}</span>
-                                            <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
+                                            <h4 class="text-truncate"><a href="{% url 'postdetail' post.pk %}">{{post.title}}</a></h4>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -241,7 +241,7 @@
                                             </div>
                                             <div class="weekly2-caption">
                                                 <span class="color1">{{post.type}}</span>
-                                                <h4 class="text-truncate"><a href="#">{{post.title}}</a></h4>
+                                                <h4 class="text-truncate"><a href="{% url 'postdetail' post.pk %}">{{post.title}}</a></h4>
                                             </div>
                                         </div>
                                     {% endfor %}

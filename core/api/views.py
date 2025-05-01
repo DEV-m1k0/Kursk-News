@@ -5,14 +5,23 @@ from .serializers import *
 
 
 class PostsView(generics.ListCreateAPIView):
+    """
+    Апи для всех новостей
+    """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     
 class BannerView(generics.ListCreateAPIView):
+    """
+    Апи для рекламы
+    """
     queryset = Banner.objects.all()
     serializer_class = AdSerializer
 
 class PostsByCategoryView(generics.ListAPIView):
+    """
+    Апи для новостей по категории
+    """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     
@@ -25,6 +34,13 @@ class PostsByCategoryView(generics.ListAPIView):
         return response.Response(serializer.data)
 
 
+class PostInfoView(generics.RetrieveAPIView):
+    """
+    Апи для новостей по id
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    lookup_field = "id"
     
     
     

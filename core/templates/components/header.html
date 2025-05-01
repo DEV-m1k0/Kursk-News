@@ -37,7 +37,7 @@
                         <!-- ------------------------------ /Логотип ------------------------------- -->
 
                         <!-- ------------------------------ Навигация ------------------------------ -->
-                        <div class="col p-0 header-flex">
+                        <div class="col p-0 header-flex justify-content-end">
                             <div class="main-menu d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation" class="d-flex justify-content-end">    
@@ -47,18 +47,12 @@
                                             <li><a href="#">Страницы</a>
                                                 <ul class="submenu">
                                                     <li><a href="elements.html">Профиль</a></li>
+                                                    <li><a href="{% url 'logout' %}">Выйти</a></li>
                                                 </ul>
                                             </li>
                                         {% else %}
                                             <li><a href="{% url 'login' %}">Войти</a></li>
                                         {% endif %}
-                                        <!-- -------------------------------- Поиск -------------------------------- -->
-                                        <li class="align-content-center">
-                                            <div class="d-none d-md-block">
-                                                <input type="search" class="form-control w-100" placeholder="Поиск новостей">
-                                            </div>
-                                        </li>
-                                        <!-- ------------------------------- /Поиск -------------------------------- -->
                                     </ul>
                                 </nav>
                             </div>

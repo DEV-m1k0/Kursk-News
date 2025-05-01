@@ -58,6 +58,9 @@
                                         {% for category in categories %}
                                             <a class="nav-item nav-link" id="nav-profile-tab" href="{% url 'category' %}?category={{category}}">{{category}}</a>
                                         {% endfor %}
+                                        <div class="align-content-center">
+                                            <input id="inpSearch" type="text" placeholder="Поиск">
+                                        </div>
                                     </div>
                                 </nav>
                                 <!--End Nav Button  -->
@@ -72,18 +75,20 @@
                                         {% if news %}
                                             {% for item in news %}
                                                 <div class="col-6 mt-5">
-                                                    <div class="card border border-0">
-                                                        <img src="{{item.image.url}}" class="card-img-top" alt="...">
-                                                        <div class="card-body p-0 pt-1">
-                                                            <h5 class="card-title">{{item.title}}</h5>
-                                                            <p class="card-text" style="
-                                                            display: -webkit-box;
-                                                            -webkit-line-clamp: 3;
-                                                            -webkit-box-orient: vertical;
-                                                            overflow: hidden;
-                                                            text-overflow: ellipsis;
-                                                        ">{{item.content}}</p>
-                                                        </div>
+                                                    <div id="card" class="card border border-0">
+                                                        <a href="{% url 'postdetail' item.pk %}">
+                                                            <img src="{{item.image.url}}" class="card-img-top" alt="...">
+                                                            <div class="card-body p-0 pt-1">
+                                                                <h5 id="card-title" class="card-title text-black">{{item.title}}</h5>
+                                                                <p class="card-text" style="
+                                                                display: -webkit-box;
+                                                                -webkit-line-clamp: 3;
+                                                                -webkit-box-orient: vertical;
+                                                                overflow: hidden;
+                                                                text-overflow: ellipsis;
+                                                                ">{{item.content}}</p>
+                                                            </div>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -169,6 +174,7 @@
 <!-- Jquery Plugins, main Jquery -->	
 <script src="{% static 'assets/js/plugins.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/js/search.js' %}"></script>
 
 {% endblock %}
 <!-- ------------------------------ /Скрипты ------------------------------- -->

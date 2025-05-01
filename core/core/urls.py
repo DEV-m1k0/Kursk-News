@@ -24,15 +24,19 @@ from api.forms import (
     MyPasswordResetForm,
     MySetPasswordForm
 )
-from django.views.generic import TemplateView
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
     path('', MainPageView.as_view(), name='index'),
     path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('category/', CategoryView.as_view(), name='category'),
+    path('post/<int:id>/',PostByIdView.as_view(), name='postdetail'),
+    path('profile/<str:username>/', ProfileView.as_view(), name='profile'),
+    path('subscribe/<str:username>/', SubscribeView.as_view(), name='toggle_subscription'),
     
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(

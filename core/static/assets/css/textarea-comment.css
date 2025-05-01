@@ -1,0 +1,99 @@
+.comment-container {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+.textarea-container {
+    position: relative;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.textarea-container:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+.comment-textarea {
+    width: 98%;
+    padding: 18px;
+    border: none;
+    border-radius: 12px 12px 0 0;
+    background: transparent;
+    resize: vertical;
+    min-height: 100px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+.comment-textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+}
+
+.comment-textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 18px;
+    background: #f9f9f9;
+    border-radius: 0 0 12px 12px;
+    border-top: 1px solid #eee;
+}
+
+.submit-btn {
+    background: #646cff;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.submit-btn:hover {
+    background: #555bf9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Optional: Add character counter */
+.textarea-footer::after {
+    content: attr(data-count);
+    color: #999;
+    font-size: 14px;
+    margin-right: auto;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .comment-container {
+        padding: 10px;
+    }
+    
+    .comment-textarea {
+        padding: 14px;
+        font-size: 15px;
+    }
+    
+    .submit-btn {
+        padding: 8px 20px;
+    }
+}

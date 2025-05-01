@@ -27,14 +27,17 @@ class MyPasswordResetForm(PasswordResetForm):
             'class': "form-control"
         }
 
-
 class CommentForm(forms.ModelForm):
-    """
-    Форма для комментариев
-    """
     class Meta:
         model = Comment
         fields = ['text']
+        widgets = {
+            'text': forms.Textarea(attrs={
+                'class': 'comment-textarea',
+                'rows': 5,
+                'placeholder': 'Напишите ваш комментарий...'
+            })
+        }
 
 class EmailAuthenticationForm(AuthenticationForm):
     """

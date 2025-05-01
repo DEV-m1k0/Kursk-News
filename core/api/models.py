@@ -12,10 +12,10 @@ class CustomUser(AbstractUser):
     Модель Пользователей
     """
     ROLES = (
-        ('user', 'Пользователь'),
-        ('copywriter', 'Копирайтер'),
-        ('admin', 'Администратор'),
-        ('redactor', 'Редактор'),
+        ('Пользователь', 'Пользователь'),
+        ('Копирайтер', 'Копирайтер'),
+        ('Администратор', 'Администратор'),
+        ('Редактор', 'Редактор'),
     )
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(_('username'), max_length=150, unique=True)
@@ -32,9 +32,9 @@ class Post(models.Model):
     Модель Новостей
     """
     NEWS_STATUS = (
-        ('under_consideration', 'На рассмотрении'),
-        ('approver', 'Утверждена'),
-        ('rejected', 'Отклонена')
+        ('На рассмотрении', 'На рассмотрении'),
+        ('Утверждена', 'Утверждена'),
+        ('Отклонена', 'Отклонена')
     )
     NEWS_TYPE = (
         ('Спорт', 'Спорт'),
@@ -129,3 +129,19 @@ class Banner(models.Model):
     class Meta:
         verbose_name = 'Реклама'
         verbose_name_plural = 'Реклама'
+
+class Subscription(models.Model):
+    """
+    Модель Подписки
+    """
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='subscriptions',verbose_name='Пользователь')
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='subscribers',verbose_name='Автор')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def __str__(self):
+        return f'Подписка {self.user} на {self.author}'
+    
+    class Meta:
+        unique_together = ('user', 'author')
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
