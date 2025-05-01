@@ -31,12 +31,8 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     path('', MainPageView.as_view(), name='index'),
     path('login/', CustomLoginView.as_view(), name='login'),
-<<<<<<< HEAD
-    path('category/', TemplateView.as_view(template_name='category.html'), name='category'),
-=======
     path('signup/', SignUpView.as_view(), name='signup'),
     path('category/', CategoryView.as_view(), name='category'),
->>>>>>> pull
     
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(
