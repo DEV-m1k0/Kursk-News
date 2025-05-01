@@ -101,7 +101,7 @@ class CategoryView(TemplateView, ContextMixin):
         else:
             all_news = Post.objects.all().order_by('-created_at')
 
-        paginator = Paginator(all_news, 4)  # Show 10 news per page
+        paginator = Paginator(all_news, 4)
         
         try:
             news = paginator.page(page)
