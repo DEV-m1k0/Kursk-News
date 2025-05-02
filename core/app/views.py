@@ -199,6 +199,7 @@ class ProfileView(TemplateView, LoginRequiredMixin):
         context = super().get_context_data(**kwargs)
         username = kwargs['username']
         user = get_object_or_404(CustomUser, username=username)
+        user_posts = Post.objects.filter(author=user)
         is_subscribed = False
     
         if self.request.user.is_authenticated:
@@ -208,6 +209,7 @@ class ProfileView(TemplateView, LoginRequiredMixin):
             ).exists()
         context['userinfo'] = user
         context['is_subscribed'] = is_subscribed
+        context['userposts'] = user_posts
         return context
     
     def get(self, request, *args, **kwargs):
