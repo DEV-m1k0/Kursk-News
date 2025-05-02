@@ -26,6 +26,7 @@ from api.forms import (
 )
 from django.contrib.auth.views import LogoutView
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
@@ -40,7 +41,8 @@ urlpatterns = [
     path('create_post/', PostCreateView.as_view(), name='post_create'),
     path('all_users/',AllUsersView.as_view(), name='all_users'),
     path('on_review_posts/', OnReviewPostsView.as_view(), name='on_review_posts'),
-    
+    path('profile/<int:pk>/edit/', ProfileEditView.as_view(), name='profile_edit'),
+
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(
         email_template_name='registration/password_reset_email.html',

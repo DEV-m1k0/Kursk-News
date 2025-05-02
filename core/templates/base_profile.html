@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- ------------------------------ Заголовок ------------------------------ -->
+{% block title %}Профиль: {{userinfo.username}}{% endblock %}
+<!-- ----------------------------- /Заголовок ------------------------------ -->
+
+
+<!-- ------------------------------- Ссылки -------------------------------- -->
+{% block links %}
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ticker-style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
+
+{% endblock %}
+<!-- ------------------------------- /Ссылки ------------------------------- -->
+
+
+<!-- ------------------------------- Контент ------------------------------- -->
+{% block body %}
+
+{% include 'components/header.html' %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="toast fade show position-absolute end-0 bottom-0 m-3">
+        <div class="toast-body bg-success">
+            <div class="row">
+                <div class="col-10 text-white">
+                    {{ message }}
+                </div>
+                <div class="col text-end">
+                    <div class="btn-close btn-close-white" data-bs-dismiss="toast"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container mt-5">
+    <div class="main-body">
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <div class="mt-3">
+                      <h4>{{userinfo.username}}</h4>
+                      <p class="text-secondary mb-1">{{userinfo.role}}</p>
+                        {% if userinfo %}
+                          <form method="post" action="{% url 'toggle_subscription' userinfo.username %}">
+                            {% csrf_token %}
+                            {% if user.is_authenticated and user != userinfo %}
+                                <button type="submit" class="btn btn-primary">
+                                    {% if is_subscribed %}
+                                        Отписаться
+                                    {% else %}
+                                        Подписаться
+                                    {% endif %}
+                                </button>
+                            {% endif %}
+                          </form>
+                        {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8 h-100">
+              <div class="card mb-3">
+                <div class="card-body">
+                    {% block profile_info %}{% endblock %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% block posts %}{% endblock %}
+
+        </div>
+  </div>
+
+{% include 'components/footer.html' %}
+
+{% endblock %}
+<!-- ------------------------------ /Контент ------------------------------- -->
+
+
+<!-- ------------------------------- Скрипты ------------------------------- -->
+{% block scripts %}
+
+   <!-- All JS Custom Plugins Link Here here -->
+   <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+   <!-- Jquery, Popper, Bootstrap -->
+   <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+   <script src="{% static 'assets/js/popper.min.js' %}"></script>
+   <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+   <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+   <!-- Jquery Mobile Menu -->
+   <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+   
+   <!-- Jquery Slick , Owl-Carousel Plugins -->
+   <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+   <script src="{% static 'assets/js/slick.min.js' %}"></script>
+   <!-- Date Picker -->
+   <script src="{% static 'assets/js/gijgo.min.js' %}"></script>
+   <!-- One Page, Animated-HeadLin -->
+   <script src="{% static 'assets/js/wow.min.js' %}"></script>
+   <script src="{% static 'assets/js/animated.headline.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+   
+   <!-- Breaking New Pluging -->
+   <script src="{% static 'assets/js/jquery.ticker.js' %}"></script>
+   <script src="{% static 'assets/js/site.js' %}"></script>
+   
+   <!-- Scrollup, nice-select, sticky -->
+   <script src="{% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+   
+   <!-- contact js -->
+   <script src="{% static 'assets/js/contact.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.form.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+   <script src="{% static 'assets/js/mail-script.js' %}"></script>
+   <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+   
+   <!-- Jquery Plugins, main Jquery -->	
+   <script src="{% static 'assets/js/plugins.js' %}"></script>
+   <script src="{% static 'assets/js/main.js' %}"></script>
+
+{% endblock %}
+<!-- ------------------------------ /Скрипты ------------------------------- -->

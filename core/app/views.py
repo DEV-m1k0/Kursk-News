@@ -8,7 +8,7 @@ from datetime import  timedelta
 from api.models import *
 from django.db.models import Count, Q
 from api.views import *
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, DetailView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm
@@ -16,6 +16,18 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib import messages
+from .forms import CustomUserForm
+
+
+class ProfileEditView(UpdateView):
+    model = CustomUser
+    template_name = 'profile_edit.html'
+    context_object_name = 'userinfo'
+    form_class = CustomUserForm
+    
+    def get_success_url(self):
+        return f'/profile/{self.get_object().username}'
+
 
 class MainPageView(generic.TemplateView):
     """

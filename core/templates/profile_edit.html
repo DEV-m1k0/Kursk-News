@@ -1,0 +1,56 @@
+{% extends 'base_profile.html' %}
+{% load static %}
+
+
+<!-- ------------------------------- Контент ------------------------------- -->
+{% block profile_info %}
+
+
+<div class="col">
+    <form method="post">
+        {% csrf_token %}
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-sm-3 align-content-center">
+                    <h6 class="mb-0">{{form.first_name.label}}:</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.first_name}}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 align-content-center">
+                    <h6 class="mb-0">{{form.last_name.label}}:</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.last_name}}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 align-content-center">
+                    <h6 class="mb-0">Почта:</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.email}}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 align-content-center">
+                    <h6 class="mb-0">{{form.username.label}}:</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.username}}
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col text-secondary">
+                    <input type="submit" class="btn btn-primary px-4 w-100" value="Сохранить изменения">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+<!-- ------------------------------ /Контент ------------------------------- -->
