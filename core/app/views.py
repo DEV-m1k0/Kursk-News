@@ -51,7 +51,7 @@ class MainPageView(generic.TemplateView):
         week_ago = timezone.now() - timedelta(days=7)
         
         # Фильтруем новости за последнюю неделю и сортируем от новых к старым
-        posts_filtered_by_date = Post.objects.filter(created_at__gte=week_ago).order_by('-created_at')
+        posts_filtered_by_date = Post.objects.filter(created_at__gte=week_ago, status= 'Утверждена').order_by('-created_at')
         context['posts_filtered_by_date'] = posts_filtered_by_date
         
         # Аннотируем количество лайков за неделю и сортируем
