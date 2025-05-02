@@ -59,9 +59,9 @@ class PostInfoView(generics.RetrieveAPIView):
     serializer_class = PostSerializer
     lookup_field = "id"
     
-class PostInfoView(generics.ListAPIView):
+class UserAPIView(generics.ListAPIView):
     """
-    Апи для получения всех пользователей
+    Апи для получения всех постов
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer

@@ -74,7 +74,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <strong>Автор: <a href="">{{postinfo.author.username}}</a></strong>
+                                        {% if postinfo.author.username %}
+                                            <strong>Автор: <a href="{% url 'profile' postinfo.author.username %}">{{postinfo.author.username}}</a></strong>
+                                        {% else %}
+                                            Автор неизвестен
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

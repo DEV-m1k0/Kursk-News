@@ -135,7 +135,7 @@ class PostByIdView(TemplateView):
         
         # Получение данных о посте
         post_response = requests.get(f"http://127.0.0.1:8000/api/v1/post/{post_id}/")
-        context['postinfo'] = post_response.json
+        context['postinfo'] = post_response.json()
         
         # Комментарии и форма
         context['comments'] = Comment.objects.filter(post_id=post_id).order_by('-created_at')
@@ -197,6 +197,9 @@ class ProfileView(TemplateView, LoginRequiredMixin):
         context['userinfo'] = user
         context['is_subscribed'] = is_subscribed
         return context
+    
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 class SubscribeView(TemplateView):
     """

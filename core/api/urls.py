@@ -7,5 +7,5 @@ urlpatterns = [
     path('postbycategory/',PostsByCategoryView.as_view()),
     path('postsonreview/',OnReviewPostsView.as_view()),
     path('post/<int:id>/', PostInfoView.as_view()),
-    path('users/', PostInfoView.as_view())
+    path('users/', UserAPIView.as_view())
 ]
