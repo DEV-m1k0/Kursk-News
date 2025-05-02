@@ -37,6 +37,9 @@ urlpatterns = [
     path('post/<int:id>/',PostByIdView.as_view(), name='postdetail'),
     path('profile/<str:username>/', ProfileView.as_view(), name='profile'),
     path('subscribe/<str:username>/', SubscribeView.as_view(), name='toggle_subscription'),
+    path('create_post/', PostCreateView.as_view(), name='post_create'),
+    path('all_users/',AllUsersView.as_view(), name='all_users'),
+    path('on_review_posts/', OnReviewPostsView.as_view(), name='on_review_posts'),
     
     # Сьрос пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(

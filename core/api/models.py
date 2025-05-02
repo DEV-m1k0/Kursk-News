@@ -19,7 +19,7 @@ class CustomUser(AbstractUser):
     )
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(_('username'), max_length=150, unique=True)
-    role = models.CharField(max_length=20, choices=ROLES, verbose_name='Роль', default='user')
+    role = models.CharField(max_length=20, choices=ROLES, verbose_name='Роль', default='Пользователь')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     
@@ -46,7 +46,7 @@ class Post(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     content = models.TextField(verbose_name='Содержимое новости',)
-    status = models.CharField(max_length=30, choices=NEWS_STATUS, verbose_name='Статус новости',default='under_consideration')
+    status = models.CharField(max_length=30, choices=NEWS_STATUS, verbose_name='Статус новости',default='На рассмотрении')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     
     def __str__(self):
