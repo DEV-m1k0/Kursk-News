@@ -38,7 +38,7 @@
     {% endif %}
     <div class="row">
         <div class="col-sm-12">
-            {% if user == userinfo %}
+            {% if user == userinfo or user.role == 'Администратор' %}
                 <a class="btn btn-info w-100 " target="__blank" href="{% url 'profile_edit' userinfo.pk %}">Редактировать</a>
             {% endif %}
         </div>

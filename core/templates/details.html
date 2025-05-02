@@ -105,7 +105,9 @@
                                                 <div class="row g-0">
                                                     <div class="col">
                                                         <div class="card-body">
-                                                            <h5 class="card-title">{{ comment.user.username }}</h5>
+                                                            <a href="{% url 'profile' comment.user.username %}" class="text-decoration-none text-black">
+                                                                <h5 class="card-title">{{ comment.user.username }}</h5>
+                                                            </a>
                                                             <p class="card-text">{{ comment.text }}</p>
                                                             <p class="card-text text-end"><small class="text-body-secondary">{{ comment.created_at|date:"d.m.Y H:i" }}</small></p>
                                                         </div>

@@ -19,7 +19,10 @@ class CustomUserForm(forms.ModelForm):
         self.fields['username'].widget.attrs = {
             'class': 'form-control'
         }
+        self.fields['role'].widget.attrs = {
+            'class': 'w-100'
+        }
 
     class Meta:
         model = CustomUser
-        fields = ["first_name", 'last_name', 'email', 'username']
+        fields = ["first_name", 'last_name', 'email', 'username', 'role']
