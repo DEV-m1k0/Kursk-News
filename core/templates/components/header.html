@@ -2,7 +2,7 @@
 
 {% block header %}
 
-<header class="bg-white">
+<header class="bg-white d-block">
     <!-- Header Start -->
    <div class="header-area">
         <div class="main-header ">
@@ -48,6 +48,9 @@
                                                 <ul class="submenu">
                                                     <li><a href="{% url 'profile' user.username %}">Профиль</a></li>
                                                     <li><a href="{% url 'logout' %}">Выйти</a></li>
+                                                    {% if user.role == 'Копирайтер' %}
+                                                        <li><a href="{% url 'post_create' %}">Создание новости</a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </li>
                                         {% else %}

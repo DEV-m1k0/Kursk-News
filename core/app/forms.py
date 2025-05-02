@@ -20,8 +20,9 @@ class CustomUserForm(forms.ModelForm):
             'class': 'form-control'
         }
         self.fields['role'].widget.attrs = {
-            'class': 'w-100'
+            'class': 'w-100',
         }
+        self.fields['role'].required = False
 
     class Meta:
         model = CustomUser

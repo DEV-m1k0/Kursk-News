@@ -9,12 +9,33 @@ from django.contrib.auth.forms import (
 )
 
 class PostForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['type'].widget.attrs = {
+            'class': 'w-100'
+        }
+        self.fields['image'].widget.attrs = {
+            'class': 'form-control'
+        }
+        self.fields['title'].widget.attrs = {
+            'class': 'form-control'
+        }
+
     class Meta:
         model = Post
         fields = ['type', 'image', 'video', 'title', 'content']
         widgets = {
-            'content': forms.Textarea(attrs={'rows': 7}),
+            'content': forms.Textarea(attrs={
+                'class': 'w-100 form-control',
+                'rows': 7,
+                'style': 'max-height: 400px;'
+            }),
             'image': forms.ClearableFileInput(attrs={'accept': 'image/jpeg,image/png'}),
+            'video': forms.TextInput(attrs={
+                'class': 'form-control'
+            })
         }
         
 class MySetPasswordForm(SetPasswordForm):
