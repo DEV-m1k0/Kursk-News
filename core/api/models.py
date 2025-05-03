@@ -39,6 +39,20 @@ class Post(models.Model):
     NEWS_TYPE = (
         ('Спорт', 'Спорт'),
         ('Политика', 'Политика'),
+        ('Культура', 'Культура'),
+        ('Интернет', 'Интернет'),
+        ('Наука и технологии', 'Наука и технологии'),
+        ('Некрологи', 'Некрологи'),
+        ('Общество', 'Общество'),
+        ('Преступность и право', 'Преступность и право'),
+        ('Происшествия', 'Происшествия'),
+        ('Рейтинги', 'Рейтинги'),
+        ('Религия', 'Религия'),
+        ('Дни рождения', 'Дни рождения'),
+        ('Филофонисты', 'Филофонисты'),
+        ('Филофония', 'Филофония'),
+        ('Экономика', 'Экономика'),
+        
     )
     type = models.CharField(max_length=40, choices=NEWS_TYPE, verbose_name='Тип новости')
     image = models.ImageField(verbose_name='Каптинка новости', upload_to='news_images', validators=[validate_image_aspect_ratio,FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
@@ -60,7 +74,7 @@ class Post(models.Model):
                 img = img.convert('RGB')
             
             # Размер, к которому приводим изображение
-            target_size = (1024, 768)
+            target_size = (1200, 350)
             img = img.resize(target_size, Image.LANCZOS)
             
             # Сохранение в буфер
