@@ -7,6 +7,14 @@
 
 {% block body %}
 {% for post in posts %}
-<button>{{post.title}}</button> <br>
+<a href="{% url 'post_edit' post.id  %}"><p>{{post.title}}</p></a>
+ <form action="{% url 'post_accept' post.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">accept</button>
+</form> 
+<form action="{% url 'post_decline' post.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">decline</button>
+</form> <br>
 {% endfor %}
 {% endblock %}
