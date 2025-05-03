@@ -15,7 +15,7 @@ class ApprovedPostsView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     parser_classes = [JSONParser, MultiPartParser]
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    renderer_classes = [JSONRenderer]
     
     @method_decorator(cache_page(60 * 60 * 2))
     @method_decorator(vary_on_cookie)
@@ -28,7 +28,7 @@ class OnReviewPostsView(generics.ListCreateAPIView):
     """
     Апи для всех утвержденных новостей
     """
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    renderer_classes = [JSONRenderer]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     parser_classes = [JSONParser, MultiPartParser]
@@ -44,7 +44,7 @@ class BannerView(generics.ListCreateAPIView):
     """
     Апи для рекламы
     """
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    renderer_classes = [JSONRenderer]
     parser_classes = [JSONParser, MultiPartParser]
     queryset = Banner.objects.all()
     serializer_class = AdSerializer
@@ -73,7 +73,7 @@ class PostInfoView(generics.RetrieveAPIView):
     """
     Апи для новостей по id
     """
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    renderer_classes = [JSONRenderer]
     parser_classes = [JSONParser, MultiPartParser]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
