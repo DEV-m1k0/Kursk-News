@@ -73,8 +73,11 @@
                                 <div class="news-item">
                                     <div class="row row-cols-1 row-cols-md-2 g-2">
                                         {% if news %}
+                                            <div class="alert d-none alert-primary w-100" id="news-alert">
+                                                <h5 class="text-center">Новости по данному запросу не найдены</h5>
+                                            </div>
                                             {% for item in news %}
-                                                <div class="col-6 mt-5">
+                                                <div class="col-6 col-md-3 mt-5" id="block-card">
                                                     <div id="card" class="card border border-0">
                                                         <a href="{% url 'postdetail' item.pk %}">
                                                             <img src="{{item.image.url}}" class="card-img-top" alt="...">
