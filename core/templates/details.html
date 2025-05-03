@@ -100,21 +100,19 @@
                                     <div class="comments">
                                         <h3>Комментарии:</h3>
 
-                                        {% for comment in comments %}
-                                            <div class="card mb-3">
-                                                <div class="row g-0">
-                                                    <div class="col">
-                                                        <div class="card-body">
-                                                            <a href="{% url 'profile' comment.user.username %}" class="text-decoration-none text-black">
-                                                                <h5 class="card-title">{{ comment.user.username }}</h5>
-                                                            </a>
-                                                            <p class="card-text">{{ comment.text }}</p>
-                                                            <p class="card-text text-end"><small class="text-body-secondary">{{ comment.created_at|date:"d.m.Y H:i" }}</small></p>
-                                                        </div>
+                                        <div class="mt-4">
+                                            {% for comment in comments %}
+                                                <div class="border-bottom py-3">
+                                                    <div class="d-flex">
+                                                        <a href="{% url 'profile' comment.user.username %}" class="text-decoration-none text-black">
+                                                            <h5 class="card-title">{{ comment.user.username }}</h5>
+                                                        </a>
+                                                        <span class="text-end ms-3"><small class="text-body-secondary">{{ comment.created_at|date:"d.m.Y H:i" }}</small></span>
                                                     </div>
+                                                    <span class="card-text">{{ comment.text }}</span>
                                                 </div>
-                                            </div>
-                                        {% endfor %}
+                                            {% endfor %}
+                                        </div>
                                         
                                         <form class="w-100" method="post">
                                             {% csrf_token %}
