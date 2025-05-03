@@ -41,7 +41,9 @@
         {% csrf_token %}
 
         <h2 class="text-white">Создание новости</h2>
-
+        {% for field in form %}
+        {{field.errors}}
+        {% endfor %}
         <hr>
         
         <div class="row mt-3">
@@ -50,7 +52,7 @@
               {{form.title}}
             </div>
         </div>
-
+        {{ form.image.error }}
         <div class="row mt-3">
             <b class="text-white">Тип:</b>
             <div class="">
