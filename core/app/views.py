@@ -11,7 +11,7 @@ from api.views import *
 from django.views.generic import CreateView, TemplateView, DetailView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm
+from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm, PostEditForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -20,10 +20,24 @@ from .forms import CustomUserForm
 
 
 class ProfileEditView(UpdateView):
+    """
+    Представление редактирования сайта
+    """
     model = CustomUser
     template_name = 'profile_edit.html'
     context_object_name = 'userinfo'
     form_class = CustomUserForm
+    
+
+
+class PostEditView(UpdateView):
+    """
+    Представление редактирования сайта
+    """
+    model = Post
+    template_name = 'post_edit.html'
+    context_object_name = 'postinfo'
+    form_class = PostEditForm
     
     def get_success_url(self):
         return f'/profile/{self.get_object().username}'
@@ -51,7 +65,7 @@ class MainPageView(generic.TemplateView):
         week_ago = timezone.now() - timedelta(days=7)
         
         # Фильтруем новости за последнюю неделю и сортируем от новых к старым
-        posts_filtered_by_date = Post.objects.filter(created_at__gte=week_ago).order_by('-created_at')
+        posts_filtered_by_date = Post.objects.filter(created_at__gte=week_ago, status= 'Утверждена').order_by('-created_at')
         context['posts_filtered_by_date'] = posts_filtered_by_date
         
         # Аннотируем количество лайков за неделю и сортируем
@@ -199,6 +213,7 @@ class ProfileView(TemplateView, LoginRequiredMixin):
         context = super().get_context_data(**kwargs)
         username = kwargs['username']
         user = get_object_or_404(CustomUser, username=username)
+        user_posts = Post.objects.filter(author=user)
         is_subscribed = False
     
         if self.request.user.is_authenticated:
@@ -208,6 +223,7 @@ class ProfileView(TemplateView, LoginRequiredMixin):
             ).exists()
         context['userinfo'] = user
         context['is_subscribed'] = is_subscribed
+        context['userposts'] = user_posts
         return context
     
     def get(self, request, *args, **kwargs):
