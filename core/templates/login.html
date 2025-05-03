@@ -22,10 +22,8 @@
 <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-<link rel="stylesheet" href="{% static 'assets/css/form.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
-
-
+<link rel="stylesheet" href="{% static 'assets/css/form.css' %}">
 
 
 {% endblock %}
@@ -51,9 +49,6 @@
             <small class="text-white">Введите вашу почту</small>
           </div>
         </div>
-        {% for error in form.non_field_errors %}
-            {{error}}
-            {% endfor %} 
         <div class="mt-4">
           <b class="text-white">Пароль:</b>
           <div class="">
@@ -75,6 +70,24 @@
 
       </form>
     </div>
+
+    {% if form.non_field_errors %}
+      <div class="toast fade show position-fixed start-0 bottom-0 m-3">
+        <div class="toast-body bg-danger">
+            <div class="row">
+                <div class="col-10 text-white">
+                  {% for error in form.non_field_errors %}
+                    {{error}}
+                  {% endfor %}
+                </div>
+                <div class="col text-end">
+                    <div class="btn-close btn-close-white" data-bs-dismiss="toast"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+       
+    {% endif %}
 
 {% endblock %}
 <!-- ------------------------------ /Контент ------------------------------- -->
