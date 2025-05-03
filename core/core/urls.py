@@ -41,7 +41,9 @@ urlpatterns = [
     path('create_post/', PostCreateView.as_view(), name='post_create'),
     path('all_users/',AllUsersView.as_view(), name='all_users'),
     path('on_review_posts/', OnReviewPostsView.as_view(), name='on_review_posts'),
-    path('on_review_posts/<int:pk>/', PostEditView.as_view(), name='on_review_posts_edit'),
+    path('on_review_posts/<int:pk>/', PostEditView.as_view(), name='post_edit'),
+    path('on_review_posts/<int:pk>/decline/', PostDeclineView.as_view(), name='post_decline'),
+    path('on_review_posts/<int:pk>/accept/', PostAcceptView.as_view(), name='post_accept'),
     path('profile/<int:pk>/edit/', ProfileEditView.as_view(), name='profile_edit'),
 
     # Сьрос пароля через почту

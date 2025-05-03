@@ -11,14 +11,29 @@ from api.views import *
 from django.views.generic import CreateView, TemplateView, DetailView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm, PostEditForm
+from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib import messages
 from .forms import CustomUserForm
 
-
+class PostDeclineView(generic.View):
+    
+    def post(srlf,request, pk):
+        post = Post.objects.get(pk=pk)
+        post.status = 'Отклонена'
+        post.save()
+        return redirect('on_review_posts')
+    
+class PostAcceptView(generic.View):
+    
+    def post(srlf,request, pk):
+        post = Post.objects.get(pk=pk)
+        post.status = 'Утверждена'
+        post.save()
+        return redirect('on_review_posts')
+    
 class ProfileEditView(UpdateView):
     """
     Представление редактирования сайта
@@ -27,6 +42,9 @@ class ProfileEditView(UpdateView):
     template_name = 'profile_edit.html'
     context_object_name = 'userinfo'
     form_class = CustomUserForm
+    
+    def get_success_url(self):
+        return f'/profile/{self.get_object().username}'
     
 
 
@@ -37,10 +55,8 @@ class PostEditView(UpdateView):
     model = Post
     template_name = 'post_edit.html'
     context_object_name = 'postinfo'
-    form_class = PostEditForm
+    form_class = PostForm
     
-    def get_success_url(self):
-        return f'/profile/{self.get_object().username}'
 
 
 class MainPageView(generic.TemplateView):

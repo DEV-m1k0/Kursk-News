@@ -73,10 +73,16 @@
         </div>
         <div class="row mb-5">
             <div class="col">
-                <button class="btn btn-success w-100" type="submit">Опубликовать</button>
+                <form action="{% url 'post_accept' object.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-success w-100" type="submit">Опубликовать</button>
+                </form>
             </div>
             <div class="col">
-                <button class="btn btn-danger w-100" type="submit">Отклонить</button>
+                <form action="{% url 'post_decline' object.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger w-100" type="submit">Отклонить</button>
+                </form>
             </div>
         </div>
     </div>

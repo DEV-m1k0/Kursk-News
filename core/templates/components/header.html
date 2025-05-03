@@ -50,7 +50,9 @@
                                                     {% if user.role == 'Копирайтер' %}
                                                         <li><a href="{% url 'post_create' %}">Создание новости</a></li>
                                                     {% endif %}
+                                                    {% if user.role == 'Редактор' %}
                                                         <li><a href="{% url 'on_review_posts' %}">Подтверждение новостей</a></li>
+                                                    {% endif %}
                                                     <li><a href="{% url 'logout' %}">Выйти</a></li>
                                                 </ul>
                                             </li>

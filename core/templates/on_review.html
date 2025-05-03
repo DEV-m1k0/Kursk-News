@@ -30,30 +30,36 @@
 
 {% include 'components/header.html' %}
 
-<div class="container my-4">
-    <h3>Список не подтвержденных новостей</h3>
+<div class="container my-4 align-content-center" style="min-height: 34vh;">
+    <h3 class="mb-5">Список не подтвержденных новостей</h3>
     <br>
-    {% for post in posts %}
-        <div class="card mb-3" style="">
-            <a href="{% url 'on_review_posts_edit' post.id %}">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{post.image}}" class="img-fluid rounded-start" alt="...">
+    {% if posts %}
+        {% for post in posts %}
+            <div class="card mb-3" style="">
+                <a href="{% url 'post_edit' post.id %}">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{post.image}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8 card-body">
+                                <h5 class="card-title text-black">{{post.title}}</h5>
+                                <p class="card-text" style="
+                                display: -webkit-box;
+                                -webkit-line-clamp: 6;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                ">{{post.content}}</p>
+                        </div>
                     </div>
-                    <div class="col-md-8 card-body">
-                            <h5 class="card-title text-black">{{post.title}}</h5>
-                            <p class="card-text" style="
-                            display: -webkit-box;
-                            -webkit-line-clamp: 6;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            ">{{post.content}}</p>
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert text-center alert-info">
+            <h4>Список пуст</h4>
         </div>
-    {% endfor %}
+    {% endif %}
 </div>
 
 {% include 'components/footer.html' %}
@@ -104,6 +110,3 @@
  <script src="{% static 'assets/js/main.js' %}"></script>
 {% endblock %}
 <!-- ------------------------------ /Скрипты ------------------------------- -->
-
-
-   
