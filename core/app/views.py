@@ -20,6 +20,9 @@ from .forms import CustomUserForm
 
 
 class ProfileEditView(UpdateView):
+    """
+    Представление редактирования сайта
+    """
     model = CustomUser
     template_name = 'profile_edit.html'
     context_object_name = 'userinfo'
