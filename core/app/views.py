@@ -11,7 +11,7 @@ from api.views import *
 from django.views.generic import CreateView, TemplateView, DetailView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm
+from api.forms import CustomUserCreationForm, EmailAuthenticationForm, CommentForm, PostForm, PostEditForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -27,6 +27,17 @@ class ProfileEditView(UpdateView):
     template_name = 'profile_edit.html'
     context_object_name = 'userinfo'
     form_class = CustomUserForm
+    
+
+
+class PostEditView(UpdateView):
+    """
+    Представление редактирования сайта
+    """
+    model = Post
+    template_name = 'post_edit.html'
+    context_object_name = 'postinfo'
+    form_class = PostEditForm
     
     def get_success_url(self):
         return f'/profile/{self.get_object().username}'
