@@ -141,7 +141,7 @@ class CategoryView(TemplateView, ContextMixin):
             context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/approvedposts/').json()
         except:
             context['posts'] = None
-        context['categories'] = ['Спорт','Политика']
+        context['categories'] = ['Спорт','Политика','Культура','Интернет','Наука и технологии','Некрологи','Общество','Преступность и право','Происшествия','Рейтинги','Религия','Дни рождения','Филофонисты','Филофония','Экономика']
         return context
     
     def get(self, request = None, *args, **kwargs):
