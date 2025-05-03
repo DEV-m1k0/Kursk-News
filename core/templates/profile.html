@@ -52,9 +52,31 @@
 
 <div class="card row mb-5 mx-1">
     <div class="col card-body">
-        <h3>Посты</h3>
+        <h3 class="my-4">Посты</h3>
         <div class="">
-            {{userposts}}
+            {% for post in userposts %}
+
+                <div class="card my-3" style="">
+                    <a href="{% url 'postdetail' post.id %}">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{post.image.url}}" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8 card-body">
+                                <h5 class="card-title text-black">{{post.title}}</h5>
+                                <p class="card-text" style="
+                                display: -webkit-box;
+                                -webkit-line-clamp: 6;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                ">{{post.content}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            {% endfor %}
         </div>
     </div>
   </div>

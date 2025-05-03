@@ -36,22 +36,7 @@
 
 {% include 'components/header.html' %}
 
-{% if messages %}
-    {% for message in messages %}
-    <div class="toast fade show position-absolute end-0 bottom-0 m-3">
-        <div class="toast-body bg-success">
-            <div class="row">
-                <div class="col-10 text-white">
-                    {{ message }}
-                </div>
-                <div class="col text-end">
-                    <div class="btn-close btn-close-white" data-bs-dismiss="toast"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-{% endif %}
+
 
 <div class="container mt-5">
     <div class="main-body">
@@ -98,6 +83,23 @@
   </div>
 
 {% include 'components/footer.html' %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="toast fade show position-fixed start-0 bottom-0 m-3">
+        <div class="toast-body bg-success">
+            <div class="row">
+                <div class="col-10 text-white">
+                    {{ message }}
+                </div>
+                <div class="col text-end">
+                    <div class="btn-close btn-close-white" data-bs-dismiss="toast"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
 
 {% endblock %}
 <!-- ------------------------------ /Контент ------------------------------- -->
