@@ -51,7 +51,9 @@
             <small class="text-white">Введите вашу почту</small>
           </div>
         </div>
-
+        {% for error in form.non_field_errors %}
+            {{error}}
+            {% endfor %} 
         <div class="mt-4">
           <b class="text-white">Пароль:</b>
           <div class="">

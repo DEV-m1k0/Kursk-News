@@ -19,7 +19,9 @@ from django.contrib import messages
 from .forms import CustomUserForm
 
 class PostDeclineView(generic.View):
-    
+    """
+    Представление отколнения новости
+    """
     def post(srlf,request, pk):
         post = Post.objects.get(pk=pk)
         post.status = 'Отклонена'
@@ -27,7 +29,9 @@ class PostDeclineView(generic.View):
         return redirect('on_review_posts')
     
 class PostAcceptView(generic.View):
-    
+    """
+    Представление утверждения новости
+    """
     def post(srlf,request, pk):
         post = Post.objects.get(pk=pk)
         post.status = 'Утверждена'
@@ -69,7 +73,7 @@ class MainPageView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         # Получение новостей через API
         try:
-            context['news'] = requests.get('http://127.0.0.1:8000/api/v1/posts/').json()
+            context['news'] = requests.get('http://127.0.0.1:8000/api/v1/approvedposts/').json()
         except:
             context['news'] = None
         
