@@ -78,7 +78,10 @@ class MainPageView(generic.TemplateView):
             context['news'] = None
         
         # Получение рекламы через API
-        context['banners'] = requests.get('http://127.0.0.1:8000/api/v1/banner/').json()
+        try:
+            context['banners'] = requests.get('http://127.0.0.1:8000/api/v1/banner/').json()
+        except:
+            context['banners'] = None
         # context['ads'] = AdBanner.objects.all()
         
         # Рассчитываем дату "неделю назад"
@@ -178,7 +181,6 @@ class PostByIdView(TemplateView):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         post_id = kwargs['id']
-        
         # Получение данных о посте
         post_response = requests.get(f"http://127.0.0.1:8000/api/v1/post/{post_id}/")
         context['postinfo'] = post_response.json()
