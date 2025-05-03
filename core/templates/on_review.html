@@ -34,27 +34,25 @@
     <h3>Список не подтвержденных новостей</h3>
     <br>
     {% for post in posts %}
-    <div class="card mb-3" style="">
-        <a href="">
-            <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="{{post.image}}" class="img-fluid rounded-start" alt="...">
+        <div class="card mb-3" style="">
+            <a href="{% url 'on_review_posts_edit' post.id %}">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{post.image}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 card-body">
+                            <h5 class="card-title text-black">{{post.title}}</h5>
+                            <p class="card-text" style="
+                            display: -webkit-box;
+                            -webkit-line-clamp: 6;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            ">{{post.content}}</p>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title text-black">{{post.title}}</h5>
-                    <p class="card-text" style="
-                      display: -webkit-box;
-                      -webkit-line-clamp: 6;
-                      -webkit-box-orient: vertical;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                    ">{{post.content}}</p>
-                  </div>
-                </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
     {% endfor %}
 </div>
 
