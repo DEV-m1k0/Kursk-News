@@ -47,10 +47,11 @@
                                             <li><a href="#">Страницы</a>
                                                 <ul class="submenu">
                                                     <li><a href="{% url 'profile' user.username %}">Профиль</a></li>
-                                                    <li><a href="{% url 'logout' %}">Выйти</a></li>
                                                     {% if user.role == 'Копирайтер' %}
                                                         <li><a href="{% url 'post_create' %}">Создание новости</a></li>
                                                     {% endif %}
+                                                        <li><a href="{% url 'on_review_posts' %}">Подтверждение новостей</a></li>
+                                                    <li><a href="{% url 'logout' %}">Выйти</a></li>
                                                 </ul>
                                             </li>
                                         {% else %}
