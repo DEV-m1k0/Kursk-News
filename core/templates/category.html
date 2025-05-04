@@ -35,7 +35,6 @@
 <!-- ------------------------------- Контент ------------------------------- -->
 {% block body %}
 
-
 {% include 'components/header.html' %}
     <main>
    <!-- Whats New Start -->
@@ -44,23 +43,18 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row d-flex justify-content-between">
-                        <div class="col-lg-3 col-md-3">
-                            <div class="section-tittle mb-30">
-                                <h3>Категории</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-md-9">
+                        <div class="col-lg-12 col-md-12">
                             <div class="properties__button">
                                 <!--Nav Button  -->                                            
-                                <nav>                                                                     
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <nav style="background-color: #f7f7f7;">                                                       
+                                    <div class="nav p-0 m-0 nav-tabs mb-0" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link" id="nav-home-tab" href="{% url 'category' %}?category=all">Все</a>
                                         {% for category in categories %}
                                             <a class="nav-item nav-link" id="nav-profile-tab" href="{% url 'category' %}?category={{category}}">{{category}}</a>
                                         {% endfor %}
-                                        <div class="align-content-center">
-                                            <input id="inpSearch" type="text" placeholder="Поиск">
-                                        </div>
+                                    </div>
+                                    <div class="align-content-center p-3">
+                                        <input class="form-control" id="inpSearch" type="text" placeholder="Поиск">
                                     </div>
                                 </nav>
                                 <!--End Nav Button  -->
@@ -96,7 +90,7 @@
                                                 </div>
                                             {% endfor %}
                                         {% else %}
-                                            <div class="alert alert-primary w-100">
+                                            <div class="alert alert-primary w-100 mt-4 px-4">
                                                 <h2 class="text-center">Новостей еще нет</h2>
                                             </div>
                                         {% endif %}

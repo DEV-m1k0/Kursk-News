@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib import messages
 from .forms import CustomUserForm
+import re
 
 class PostDeclineView(generic.View):
     """
@@ -184,6 +185,14 @@ class PostByIdView(TemplateView):
         # Получение данных о посте
         post_response = requests.get(f"http://127.0.0.1:8000/api/v1/post/{post_id}/")
         context['postinfo'] = post_response.json()
+
+        if 'video' in post_response.json():
+            try:
+                url_video = post_response.json()['video']
+                video_id = re.search(r'rutube\.ru/video/([a-zA-Z0-9_\-]+)', url_video).group(1)
+                context['video_id'] = video_id
+            except:
+                pass
         
         # Комментарии и форма
         context['comments'] = Comment.objects.filter(post_id=post_id).order_by('-created_at')
@@ -287,7 +296,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
+
+
 class AllUsersView(TemplateView, ContextMixin):
     """
     Представление страницы со всеми пользователями 

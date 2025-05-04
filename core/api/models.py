@@ -52,7 +52,6 @@ class Post(models.Model):
         ('Филофонисты', 'Филофонисты'),
         ('Филофония', 'Филофония'),
         ('Экономика', 'Экономика'),
-        
     )
     type = models.CharField(max_length=40, choices=NEWS_TYPE, verbose_name='Тип новости')
     image = models.ImageField(verbose_name='Каптинка новости', upload_to='news_images', validators=[validate_image_aspect_ratio,FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
