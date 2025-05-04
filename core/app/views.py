@@ -110,7 +110,6 @@ class MainPageView(generic.TemplateView):
             most_popular_post = posts_filtered_by_likes.first() if posts_filtered_by_likes.first().num_likes > 0 else None
         except:
             most_popular_post = None
-        print(posts_filtered_by_likes.first().num_likes )
         context['most_popular_post'] = most_popular_post
         return context
 
