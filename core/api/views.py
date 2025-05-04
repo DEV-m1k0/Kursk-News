@@ -33,8 +33,6 @@ class OnReviewPostsView(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     parser_classes = [JSONParser, MultiPartParser]
     
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
     def get(self, request):
         obj = Post.objects.filter(status='На рассмотрении')
         serializer = PostSerializer(obj, many=True)
@@ -58,8 +56,6 @@ class PostsByCategoryView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     
-    @method_decorator(cache_page(60 * 60 * 2))
-    @method_decorator(vary_on_cookie)
     def get(self, request):
         category = request.GET.get('category')
         display_name_to_key = {v: k for k, v in Post.NEWS_TYPE}

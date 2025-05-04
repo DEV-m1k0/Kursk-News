@@ -33,7 +33,8 @@ class PostAcceptView(generic.View):
     """
     Представление утверждения новости
     """
-    def post(srlf,request, pk):
+    def post(self,request, pk):
+        print(pk)
         post = Post.objects.get(pk=pk)
         post.status = 'Утверждена'
         post.save()
@@ -93,7 +94,7 @@ class MainPageView(generic.TemplateView):
         context['posts_filtered_by_date'] = posts_filtered_by_date
         
         # Аннотируем количество лайков за неделю и сортируем
-        posts_filtered_by_likes = Post.objects.annotate(
+        posts_filtered_by_likes = Post.objects.filter(status='Утверждена').annotate(
             num_likes=Count(
                 'likes',
                 filter=Q(likes__created_at__gte=week_ago) # Фильтр лайков за неделю
@@ -106,7 +107,7 @@ class MainPageView(generic.TemplateView):
         
         # Получение самой популярной новости по лайка. Если такой нет, то возвращаяет None
         try:
-            most_popular_post = posts_filtered_by_likes.first() if posts_filtered_by_likes.first().num_likes >0 else None
+            most_popular_post = posts_filtered_by_likes.first() if posts_filtered_by_likes.first().num_likes > 0 else None
         except:
             most_popular_post = None
         context['most_popular_post'] = most_popular_post
@@ -142,7 +143,7 @@ class CategoryView(TemplateView, ContextMixin):
             context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/approvedposts/').json()
         except:
             context['posts'] = None
-        context['categories'] = ['Спорт','Политика','Культура','Интернет','Наука и технологии','Некрологи','Общество','Преступность и право','Происшествия','Рейтинги','Религия','Дни рождения','Филофонисты','Филофония','Экономика']
+        context['categories'] = ['Спорт','Политика','Культура','Интернет','Наука и технологии','Общество','Преступность и право','Рейтинги','Религия','Дни рождения','Экономика']
         return context
     
     def get(self, request = None, *args, **kwargs):
@@ -319,7 +320,6 @@ class OnReviewPostsView(TemplateView, ContextMixin):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         # Получение пользователей через API
         context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/postsonreview/').json()
         return context
