@@ -46,7 +46,7 @@ urlpatterns = [
     path('on_review_posts/<int:pk>/accept/', PostAcceptView.as_view(), name='post_accept'),
     path('profile/<int:pk>/edit/', ProfileEditView.as_view(), name='profile_edit'),
 
-    # Сьрос пароля через почту
+    # Сброс пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(
         email_template_name='registration/password_reset_email.html',
         template_name='registration/password_reset_form.html',
