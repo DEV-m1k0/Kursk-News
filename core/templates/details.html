@@ -47,7 +47,11 @@
 
 
 <main>
-
+    <a href="{% url 'approved_post_edit' postinfo.id %}"><button>Редакт</button></a>
+    <form action="{% url 'delete_post' postinfo.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+    </form>
     <!-- About US Start -->
     <div class="about-area mt-5">
         <div class="container">
@@ -119,6 +123,10 @@
                                                         <span class="text-end ms-3"><small class="text-body-secondary">{{ comment.created_at|date:"d.m.Y H:i" }}</small></span>
                                                     </div>
                                                     <span class="card-text">{{ comment.text }}</span>
+                                                    <form action="{% url 'delete_comment' comment.id %}" method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit">Удалить</button>
+                                                    </form>
                                                 </div>
                                             {% endfor %}
                                         </div>
