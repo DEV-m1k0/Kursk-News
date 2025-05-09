@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/category.css' %}">
 {% endblock %}
 <!-- ------------------------------- /Ссылки ------------------------------- -->
 
@@ -48,9 +49,9 @@
                                 <!--Nav Button  -->                                            
                                 <nav style="background-color: #f7f7f7;">                                                       
                                     <div class="nav p-0 m-0 nav-tabs mb-0" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link" id="nav-home-tab" href="{% url 'category' %}?category=all">Все</a>
+                                        <a class="nav-item nav-link rounded-pill py-1 m-1 text-center" id="nav-home-tab" href="{% url 'category' %}?category=all">Все</a>
                                         {% for category in categories %}
-                                            <a class="nav-item nav-link" id="nav-profile-tab" href="{% url 'category' %}?category={{category}}">{{category}}</a>
+                                            <a class="nav-item text-center nav-link rounded-pill m-1 py-1" id="nav-profile-tab" href="{% url 'category' %}?category={{category}}">{{category}}</a>
                                         {% endfor %}
                                     </div>
                                     <div class="align-content-center p-3">

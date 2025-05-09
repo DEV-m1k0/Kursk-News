@@ -4,9 +4,22 @@ header a {
     text-decoration: none;
 }
 
+/* header .logo img {
+    max-width: 100%;
+} */
+
 @media screen and (max-width: 767px) {
     header .weekly-img img {
         max-width: 50%;
         /* max-height: 50px; */
+    }
+}
+
+@media screen and (max-width: 576px) {
+    header .logo img {
+        max-width: 200px;
+    }
+    .slicknav_btn {
+        margin-top: 10px;
     }
 }
