@@ -1,16 +1,151 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<!-- ------------------------------ Заголовок ------------------------------ -->
-{% block title %}Создание{% endblock %}
-<!-- ----------------------------- /Заголовок ------------------------------ -->
+{% block links %}
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ticker-style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all_users.css' %}">
+
+{% endblock %}
 
 {% block body %}
-{% for user in users %}
-<button>{{user.username}}</button>
-<form action="{% url 'delete_user' user.id %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Удалить</button>
-</form> <br>
-{% endfor %}
+
+{% include 'components/header.html' %}
+    <div class="container mt-5">
+        <div class="col">
+            <div class="card mb-5">
+                <div class="card-body">
+            <h3 class="mb-4">Все пользователи</h3>
+            
+            <!-- Search Form -->
+            <div class="mb-4">
+                <form class="input-group">
+                    <input type="text" class="form-control" placeholder="Поиск пользователей..." aria-label="Search" id="inpUserSearch">
+                </form>
+            </div>
+
+            <!-- Users Grid -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for user in users %}
+                <div class="col-4 user-card">
+                    <div class="card h-100 shadow-hover">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3 mb-3">
+                                <!-- Avatar -->
+                                <div class="avatar-placeholder bg-info text-white">
+                                    {{ user.first_name|first }}{{ user.last_name|first }}
+                                </div>
+                                
+                                <!-- User Info -->
+                                <div>
+                                    <h5 class="card-title mb-1 user-name">
+                                        {{ user.first_name }} {{ user.last_name }}
+                                    </h5>
+                                    <p class="text-secondary mb-0 small user-email">{{ user.email }}</p>
+                                    <span class="badge bg-info mt-1 user-role">{{ user.role }}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Button -->
+                            <a href="{% url 'profile' user.username %}" 
+                               class="btn btn-outline-info w-100 mt-2">
+                                Посмотреть профиль
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% include 'components/footer.html' %}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<!-- All JS Custom Plugins Link Here here -->
+<script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/slick.min.js' %}"></script>
+<!-- Date Picker -->
+<script src="{% static 'assets/js/gijgo.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/animated.headline.js' %}"></script>
+<script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Breaking New Pluging -->
+<script src="{% static 'assets/js/jquery.ticker.js' %}"></script>
+<script src="{% static 'assets/js/site.js' %}"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="{% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static 'assets/js/contact.js' %}"></script>
+<script src="{% static 'assets/js/jquery.form.js' %}"></script>
+<script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'assets/js/mail-script.js' %}"></script>
+<script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->	
+<script src="{% static 'assets/js/plugins.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/js/all_users_search.js' %}"></script>
+
 {% endblock %}

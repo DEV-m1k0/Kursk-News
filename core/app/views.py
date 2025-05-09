@@ -333,6 +333,9 @@ class EditPostView(UpdateView):
     context_object_name = 'postinfo'
     form_class = PostForm
 
+    def get_success_url(self):
+        return f"/post/{self.get_object().id}/"
+
 class PostDeleteView(TemplateView):
     """
     Обработчик удаления новости

@@ -1,0 +1,193 @@
+.approved-post-edit {
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    min-height: calc(100vh - 200px);
+    box-sizing: border-box;
+}
+
+.approved-post-edit .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+form {
+    overflow: hidden;
+}
+
+form a {
+    color: black;
+    text-decoration: none;
+}
+
+form a:hover {
+    color: rgba(0, 0, 0, 0.438);
+}
+
+.approved-post-edit .form-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 3rem;
+    margin: 2rem auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+}
+
+.approved-post-edit .form-title {
+    font-size: 2.5rem;
+    color: #2d3436;
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.approved-post-edit .form-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #00bfff);
+    border-radius: 2px;
+}
+
+/* Image preview improvements */
+.approved-post-edit .image-preview-container {
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+}
+
+.approved-post-edit .current-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    display: block;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Form group improvements */
+.approved-post-edit .form-group {
+    margin-bottom: 2rem;
+}
+
+.approved-post-edit .form-group:last-child {
+    margin-bottom: 0;
+}
+
+/* Input/textarea improvements */
+.approved-post-edit textarea {
+    min-height: 200px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* Button improvements */
+.approved-post-edit .submit-btn {
+    background: linear-gradient(90deg, #007bff, #00bfff);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 3rem auto 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-sizing: border-box;
+}
+
+/* Error message improvements */
+.approved-post-edit .error-message {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #dc3545;
+    position: relative;
+    animation: shake 0.4s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .approved-post-edit {
+        padding: 1.5rem 0;
+    }
+
+    .approved-post-edit .container {
+        padding: 0 1rem;
+    }
+
+    .approved-post-edit .form-container {
+        padding: 2rem 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .approved-post-edit .form-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .approved-post-edit .current-image {
+        max-height: 300px;
+        padding: 0.5rem;
+    }
+
+    .approved-post-edit .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .approved-post-edit .submit-btn {
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        max-width: none;
+    }
+
+    .approved-post-edit input[type="text"],
+    .approved-post-edit textarea {
+        padding: 0.8rem 1rem;
+    }
+}
+
+/* Animation improvements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+.approved-post-edit .form-group {
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+}
+
+/* Remove nth-child delays and use CSS variable instead */

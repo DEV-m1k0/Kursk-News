@@ -47,11 +47,6 @@
 
 
 <main>
-    <a href="{% url 'approved_post_edit' postinfo.id %}"><button>Редакт</button></a>
-    <form action="{% url 'delete_post' postinfo.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Удалить</button>
-    </form>
     <!-- About US Start -->
     <div class="about-area mt-5">
         <div class="container">
@@ -93,6 +88,17 @@
                                             Автор неизвестен
                                         {% endif %}
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="{% url 'approved_post_edit' postinfo.id %}"><button class="w-100 btn btn-primary">Редактировать</button></a>
+                                </div>
+                                <div class="col">
+                                    <form action="{% url 'delete_post' postinfo.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="w-100 btn btn-danger" type="submit">Удалить</button>
+                                    </form>
                                 </div>
                             </div>
                             <br>

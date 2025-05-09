@@ -13,10 +13,10 @@ class PostForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['type'].widget.attrs = {
-            'class': 'w-100'
+            'class': 'w-100 form-select'
         }
         self.fields['image'].widget.attrs = {
-            'class': 'form-control'
+            'class': 'form-control',
         }
         self.fields['title'].widget.attrs = {
             'class': 'form-control'

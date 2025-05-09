@@ -44,14 +44,17 @@
                                         <li><a href="{% url 'index' %}">Главная</a></li>
                                         <li><a href="{% url 'category' %}">Новости</a></li>
                                         {% if request.user.is_authenticated %}
-                                            <li><a href="#">Страницы</a>
+                                            <li><a href="#">Навигация</a>
                                                 <ul class="submenu">
                                                     <li><a href="{% url 'profile' user.username %}">Профиль</a></li>
                                                     {% if user.role == 'Копирайтер' %}
-                                                        <li><a href="{% url 'post_create' %}">Создание новости</a></li>
+                                                        <li><a href="{% url 'post_create' %}">Создать новость</a></li>
                                                     {% endif %}
                                                     {% if user.role == 'Редактор' %}
-                                                        <li><a href="{% url 'on_review_posts' %}">Подтверждение новостей</a></li>
+                                                        <li><a href="{% url 'on_review_posts' %}">На рассмотрении</a></li>
+                                                    {% endif %}
+                                                    {% if user.role == 'Администратор' %}
+                                                        <li><a href="{% url 'all_users' %}">Все пользователи</a></li>
                                                     {% endif %}
                                                     <li><a href="{% url 'logout' %}">Выйти</a></li>
                                                 </ul>
