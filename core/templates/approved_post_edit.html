@@ -6,11 +6,5 @@
 <!-- ----------------------------- /Заголовок ------------------------------ -->
 
 {% block body %}
-{% for user in users %}
-<button>{{user.username}}</button>
-<form action="{% url 'delete_user' user.id %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Удалить</button>
-</form> <br>
-{% endfor %}
+{{form}}
 {% endblock %}

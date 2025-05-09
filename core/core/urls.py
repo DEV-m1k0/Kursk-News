@@ -45,6 +45,10 @@ urlpatterns = [
     path('on_review_posts/<int:pk>/decline/', PostDeclineView.as_view(), name='post_decline'),
     path('on_review_posts/<int:pk>/accept/', PostAcceptView.as_view(), name='post_accept'),
     path('profile/<int:pk>/edit/', ProfileEditView.as_view(), name='profile_edit'),
+    path('edit_post/<int:pk>/',EditPostView.as_view(), name='approved_post_edit'),
+    path('delete_post/<int:pk>/',PostDeleteView.as_view(), name='delete_post'),
+    path('delete_comment/<int:pk>/',CommentDeleteView.as_view(), name='delete_comment'),
+    path('delete_user/<int:pk>/',UserDeleteView.as_view(), name='delete_user'),
 
     # Сброс пароля через почту
     path('password_reset/', auth_views.PasswordResetView.as_view(

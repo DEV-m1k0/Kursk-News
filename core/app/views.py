@@ -323,3 +323,46 @@ class OnReviewPostsView(TemplateView, ContextMixin):
         # Получение пользователей через API
         context['posts'] = requests.get('http://127.0.0.1:8000/api/v1/postsonreview/').json()
         return context
+
+class EditPostView(UpdateView):
+    """
+    Представление редактирования новостей
+    """
+    model = Post
+    template_name = 'approved_post_edit.html'
+    context_object_name = 'postinfo'
+    form_class = PostForm
+
+class PostDeleteView(TemplateView):
+    """
+    Обработчик удаления новости
+    """
+    template_name = 'details.html'
+    
+    def post(self, request, pk):
+        post = Post.objects.get(id=pk)
+        post.delete()
+        return redirect('index')
+
+class CommentDeleteView(TemplateView):
+    """
+    Обработчик удаления комментария
+    """
+    template_name = 'details.html'
+    
+    def post(self, request, pk):
+        comment = Comment.objects.get(id=pk)
+        comment.delete()
+        post_id = comment.post.id
+        return redirect('postdetail', id=post_id)
+
+class UserDeleteView(TemplateView):
+    """
+    Обработчик удаления пользователя
+    """
+    template_name = 'all_users.html'
+    
+    def post(self, request, pk):
+        user = CustomUser.objects.get(id=pk)
+        user.delete()
+        return redirect('all_users')
